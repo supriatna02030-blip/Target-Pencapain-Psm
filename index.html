@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#087cff">
+<meta name="theme-color" content="#0866d6">
 <meta name="mobile-web-app-capable" content="yes">
+
 <title>PSM Monitoring</title>
 
 <style>
@@ -14,94 +15,113 @@
   padding:0;
 }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f3f6fa;
-  color:#172033;
-  padding-bottom:80px;
+:root{
+  --blue:#0866d6;
+  --blue2:#004aa8;
+  --light:#f4f7fb;
+  --text:#172033;
+  --muted:#758197;
+  --green:#0b9b57;
+  --greenbg:#eaf9f1;
+  --red:#e53935;
+  --redbg:#fff0f0;
+  --yellow:#d88900;
+  --yellowbg:#fff7df;
+  --border:#e1e7ef;
+  --white:#fff;
 }
 
-button,input,select{
-  font:inherit;
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--light);
+  color:var(--text);
+  padding-bottom:82px;
+}
+
+button,
+input,
+select{
+  font-family:inherit;
 }
 
 button{
-  border:0;
   cursor:pointer;
+  border:0;
 }
 
 .header{
-  background:linear-gradient(135deg,#087cff,#0055c9);
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
   color:white;
-  padding:22px 18px 28px;
+  padding:20px 16px 25px;
   border-radius:0 0 25px 25px;
-  box-shadow:0 5px 18px rgba(0,0,0,.12);
+  box-shadow:0 6px 20px rgba(0,60,150,.2);
 }
 
 .header-top{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:800;
+  font-size:21px;
+  font-weight:900;
 }
 
 .subtitle{
-  margin-top:6px;
+  font-size:12px;
+  margin-top:5px;
   opacity:.9;
-  font-size:13px;
 }
 
-.month-control{
-  margin-top:18px;
+.month-box{
+  margin-top:16px;
   display:flex;
   gap:8px;
 }
 
-.month-control input{
+.month-box input{
   flex:1;
+  padding:12px;
   border:0;
   border-radius:12px;
-  padding:12px;
   outline:none;
+  font-weight:700;
 }
 
 .container{
-  max-width:900px;
+  width:100%;
+  max-width:1000px;
   margin:auto;
-  padding:15px;
+  padding:14px;
 }
 
 .week-tabs{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:7px;
-  margin-top:-4px;
+  margin-top:-3px;
 }
 
 .week-tab{
   background:white;
+  color:var(--muted);
   border-radius:13px;
-  padding:11px 5px;
-  text-align:center;
+  padding:10px 4px;
   box-shadow:0 3px 12px rgba(0,0,0,.06);
-  color:#657085;
-  font-size:12px;
+  font-size:11px;
 }
 
 .week-tab strong{
   display:block;
+  color:var(--text);
   font-size:14px;
-  color:#172033;
   margin-bottom:3px;
 }
 
 .week-tab.active{
-  background:#087cff;
+  background:var(--blue);
   color:white;
 }
 
@@ -110,47 +130,66 @@ button{
 }
 
 .section-title{
-  margin:22px 2px 10px;
+  margin:20px 2px 10px;
   font-size:17px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:9px;
 }
 
 .card{
   background:white;
   border-radius:17px;
-  padding:15px;
-  box-shadow:0 3px 14px rgba(0,0,0,.06);
+  padding:14px;
+  box-shadow:0 3px 14px rgba(0,0,0,.055);
 }
 
 .card-label{
-  color:#758095;
-  font-size:12px;
+  font-size:11px;
+  color:var(--muted);
 }
 
 .card-value{
-  margin-top:5px;
   font-size:24px;
-  font-weight:800;
+  font-weight:900;
+  margin-top:5px;
 }
 
-.card-small{
+.card-sub{
+  font-size:10px;
+  color:var(--muted);
   margin-top:4px;
-  font-size:11px;
-  color:#7c8799;
+}
+
+.acv{
+  font-size:29px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.good{
+  color:var(--green)!important;
+}
+
+.warning{
+  color:var(--yellow)!important;
+}
+
+.bad{
+  color:var(--red)!important;
 }
 
 .progress-card{
-  margin-top:10px;
+  margin-top:9px;
 }
 
 .progress{
-  height:12px;
+  width:100%;
+  height:11px;
   background:#e8edf4;
   border-radius:20px;
   overflow:hidden;
@@ -159,82 +198,93 @@ button{
 
 .progress-bar{
   height:100%;
-  width:0%;
-  border-radius:20px;
+  width:0;
   background:linear-gradient(90deg,#087cff,#00b7ff);
-  transition:.3s;
-}
-
-.acv{
-  font-size:32px;
-  font-weight:900;
-  margin-top:5px;
-}
-
-.good{
-  color:#0a9b55;
-}
-
-.warning{
-  color:#d78a00;
-}
-
-.bad{
-  color:#e53935;
+  border-radius:20px;
+  transition:.35s;
 }
 
 .info-box{
-  margin-top:10px;
-  background:#eef7ff;
-  border:1px solid #cce6ff;
-  border-radius:16px;
-  padding:15px;
+  background:#edf7ff;
+  border:1px solid #cfe8ff;
+  border-radius:17px;
+  padding:14px;
 }
 
 .info-row{
   display:flex;
   justify-content:space-between;
-  gap:10px;
-  padding:5px 0;
-  font-size:13px;
+  align-items:center;
+  gap:12px;
+  padding:6px 0;
+  font-size:12px;
 }
 
 .info-row strong{
   text-align:right;
 }
 
+.alert{
+  margin-top:10px;
+  border-radius:15px;
+  padding:13px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.alert.good{
+  background:var(--greenbg);
+}
+
+.alert.warning{
+  background:var(--yellowbg);
+}
+
+.alert.bad{
+  background:var(--redbg);
+}
+
 .primary-btn{
   width:100%;
-  background:#087cff;
-  color:white;
+  margin-top:10px;
   padding:13px;
   border-radius:13px;
-  font-weight:700;
-  margin-top:12px;
+  color:white;
+  background:var(--blue);
+  font-weight:800;
 }
 
 .secondary-btn{
-  background:#eef4fb;
-  color:#087cff;
-  padding:10px 13px;
+  background:#edf3fa;
+  color:var(--blue);
+  padding:11px 13px;
   border-radius:11px;
-  font-weight:700;
+  font-weight:800;
 }
 
-.danger-btn{
-  background:#fff0f0;
-  color:#e53935;
+.small-btn{
   padding:8px 10px;
   border-radius:9px;
-  font-size:12px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.red-btn{
+  color:var(--red);
+  background:var(--redbg);
+}
+
+.green-btn{
+  color:var(--green);
+  background:var(--greenbg);
 }
 
 .item{
   background:white;
-  border-radius:17px;
+  border-radius:18px;
   padding:15px;
   margin-bottom:10px;
-  box-shadow:0 3px 14px rgba(0,0,0,.06);
+  box-shadow:0 3px 14px rgba(0,0,0,.055);
 }
 
 .item-head{
@@ -246,61 +296,240 @@ button{
 
 .item-name{
   font-size:15px;
-  font-weight:800;
+  font-weight:900;
 }
 
-.item-achievement{
+.item-target{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.item-percent{
   font-size:20px;
   font-weight:900;
   white-space:nowrap;
 }
 
-.item-grid{
+.item-stats{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
   margin-top:13px;
 }
 
-.field label{
-  display:block;
-  font-size:11px;
-  color:#788398;
-  margin-bottom:5px;
+.mini{
+  background:#f7f9fc;
+  border-radius:11px;
+  padding:9px;
 }
 
-.field input{
-  width:100%;
-  border:1px solid #dce3ed;
-  background:#f9fbfd;
-  border-radius:10px;
-  padding:10px;
-  outline:none;
+.mini-label{
+  color:var(--muted);
+  font-size:9px;
 }
 
-.field input:focus{
-  border-color:#087cff;
+.mini-value{
+  margin-top:4px;
+  font-weight:900;
+  font-size:13px;
 }
 
-.item-bottom{
+.item-actions{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:12px;
   gap:8px;
+  margin-top:12px;
 }
 
 .status{
+  font-size:11px;
+  font-weight:800;
+}
+
+.daily-card{
+  background:white;
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:10px;
+  box-shadow:0 3px 14px rgba(0,0,0,.055);
+}
+
+.daily-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.daily-title{
+  font-weight:900;
+  font-size:14px;
+}
+
+.daily-target{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.daily-input{
+  width:105px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  text-align:center;
+  font-weight:800;
+}
+
+.daily-input:focus{
+  border-color:var(--blue);
+}
+
+.daily-bottom{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:11px;
+}
+
+.daily-mini{
+  background:#f7f9fc;
+  border-radius:10px;
+  padding:8px;
+}
+
+.daily-mini span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.daily-mini strong{
+  display:block;
+  margin-top:3px;
   font-size:12px;
-  font-weight:700;
+}
+
+.day-selector{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+
+.day-btn{
+  flex:0 0 auto;
+  min-width:58px;
+  background:white;
+  border:1px solid var(--border);
+  color:var(--muted);
+  border-radius:12px;
+  padding:9px 6px;
+  font-size:10px;
+}
+
+.day-btn strong{
+  display:block;
+  color:var(--text);
+  font-size:13px;
+}
+
+.day-btn.active{
+  background:var(--blue);
+  color:white;
+  border-color:var(--blue);
+}
+
+.day-btn.active strong{
+  color:white;
+}
+
+.day-btn.done{
+  border-color:#73c89b;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  background:white;
+  border-radius:16px;
+  box-shadow:0 3px 14px rgba(0,0,0,.055);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
+}
+
+th,
+td{
+  padding:11px 9px;
+  border-bottom:1px solid #edf0f4;
+  font-size:11px;
+  text-align:left;
+}
+
+th{
+  background:#f7f9fc;
+  font-weight:900;
+}
+
+.empty{
+  background:white;
+  border-radius:17px;
+  padding:27px 15px;
+  text-align:center;
+  color:var(--muted);
+  box-shadow:0 3px 14px rgba(0,0,0,.05);
+}
+
+.empty-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.bottom-nav{
+  position:fixed;
+  z-index:100;
+  left:0;
+  right:0;
+  bottom:0;
+  height:67px;
+  background:white;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  box-shadow:0 -4px 20px rgba(0,0,0,.08);
+}
+
+.nav-btn{
+  background:white;
+  color:#7c8798;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:3px;
+  font-size:10px;
+}
+
+.nav-btn span{
+  font-size:20px;
+}
+
+.nav-btn.active{
+  color:var(--blue);
+  font-weight:900;
 }
 
 .modal{
   display:none;
   position:fixed;
+  z-index:200;
   inset:0;
   background:rgba(0,0,0,.5);
-  z-index:100;
   align-items:flex-end;
   justify-content:center;
 }
@@ -310,119 +539,70 @@ button{
 }
 
 .modal-box{
-  background:white;
   width:100%;
   max-width:650px;
-  border-radius:25px 25px 0 0;
-  padding:20px;
   max-height:90vh;
   overflow:auto;
+  background:white;
+  border-radius:24px 24px 0 0;
+  padding:20px;
 }
 
 .modal-title{
   font-size:20px;
-  font-weight:800;
+  font-weight:900;
   margin-bottom:15px;
 }
 
-.modal-field{
+.form-group{
   margin-bottom:12px;
 }
 
-.modal-field label{
+.form-group label{
   display:block;
-  font-size:12px;
+  color:var(--muted);
+  font-size:11px;
   margin-bottom:6px;
-  color:#6d7789;
 }
 
-.modal-field input{
+.form-group input{
   width:100%;
   padding:12px;
-  border:1px solid #dce3ed;
+  border:1px solid var(--border);
   border-radius:11px;
   outline:none;
 }
 
-.modal-actions{
+.form-actions{
   display:flex;
   gap:8px;
-  margin-top:15px;
 }
 
-.modal-actions button{
+.form-actions button{
   flex:1;
 }
 
-.empty{
-  background:white;
-  border-radius:17px;
-  padding:25px 15px;
-  text-align:center;
-  color:#7b8597;
-  box-shadow:0 3px 14px rgba(0,0,0,.05);
-}
-
-.empty-icon{
-  font-size:35px;
-  margin-bottom:8px;
-}
-
-.bottom-nav{
+.toast{
   position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:66px;
-  background:white;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  box-shadow:0 -4px 18px rgba(0,0,0,.08);
-  z-index:50;
-}
-
-.nav-btn{
-  background:white;
-  color:#7c8798;
-  font-size:11px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-}
-
-.nav-btn span{
-  font-size:20px;
-}
-
-.nav-btn.active{
-  color:#087cff;
-  font-weight:800;
-}
-
-.table-wrap{
-  overflow-x:auto;
-  background:white;
-  border-radius:15px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:500px;
-}
-
-th,td{
-  padding:11px 9px;
-  border-bottom:1px solid #edf0f4;
+  z-index:500;
+  left:50%;
+  bottom:80px;
+  transform:translateX(-50%) translateY(20px);
+  background:#172033;
+  color:white;
+  padding:11px 16px;
+  border-radius:12px;
   font-size:12px;
-  text-align:left;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  max-width:90%;
+  text-align:center;
 }
 
-th{
-  background:#f7f9fc;
-  font-weight:800;
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
 @media(min-width:700px){
@@ -432,8 +612,9 @@ th{
 
   .bottom-nav{
     left:50%;
+    right:auto;
+    width:500px;
     transform:translateX(-50%);
-    max-width:900px;
     border-radius:20px 20px 0 0;
   }
 }
@@ -443,161 +624,298 @@ th{
 <body>
 
 <header class="header">
+
   <div class="header-top">
+
     <div>
       <div class="logo">📊 PSM MONITORING</div>
-      <div class="subtitle">Monitoring Produk Spesial Mingguan</div>
+      <div class="subtitle">
+        Produk Spesial Mingguan
+      </div>
     </div>
+
   </div>
 
-  <div class="month-control">
-    <input type="month" id="monthInput">
+  <div class="month-box">
+    <input
+      type="month"
+      id="monthInput"
+    >
   </div>
+
 </header>
+
 
 <main class="container">
 
-  <div class="week-tabs" id="weekTabs"></div>
+  <!-- WEEK -->
+
+  <div
+    class="week-tabs"
+    id="weekTabs">
+  </div>
+
+
+  <!-- DASHBOARD -->
 
   <section id="dashboardSection">
 
-    <div class="section-title">📊 Dashboard Week</div>
+    <div class="section-title">
+      📊 Dashboard PSM
+    </div>
 
     <div class="cards">
 
       <div class="card">
-        <div class="card-label">Target Total</div>
-        <div class="card-value" id="totalTarget">0</div>
-        <div class="card-small">Qty</div>
+        <div class="card-label">
+          Target Total
+        </div>
+        <div
+          class="card-value"
+          id="totalTarget">
+          0
+        </div>
+        <div class="card-sub">
+          Qty Week
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-label">Pencapaian</div>
-        <div class="card-value" id="totalActual">0</div>
-        <div class="card-small">Qty</div>
+        <div class="card-label">
+          Pencapaian Total
+        </div>
+        <div
+          class="card-value"
+          id="totalActual">
+          0
+        </div>
+        <div class="card-sub">
+          Qty
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-label">Selisih</div>
-        <div class="card-value" id="totalDifference">0</div>
-        <div class="card-small">Lebih / kurang</div>
+        <div class="card-label">
+          Selisih
+        </div>
+        <div
+          class="card-value"
+          id="totalDifference">
+          0
+        </div>
+        <div class="card-sub">
+          Lebih / kurang
+        </div>
       </div>
 
       <div class="card">
-        <div class="card-label">ACV Week</div>
-        <div class="acv" id="totalAcv">0%</div>
-        <div class="card-small" id="statusText">Belum ada data</div>
+        <div class="card-label">
+          ACV WEEK
+        </div>
+        <div
+          class="acv"
+          id="totalACV">
+          0%
+        </div>
+        <div
+          class="card-sub"
+          id="weekStatus">
+          Belum ada target
+        </div>
       </div>
 
     </div>
+
 
     <div class="card progress-card">
-      <div class="card-label">Progress terhadap Target</div>
-      <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
+
+      <div class="card-label">
+        Progress Target Week
       </div>
+
+      <div class="progress">
+        <div
+          class="progress-bar"
+          id="progressBar">
+        </div>
+      </div>
+
     </div>
 
-    <div class="section-title">📅 Target Berjalan</div>
+
+    <!-- ROLLING TOTAL -->
+
+    <div class="section-title">
+      🔄 Target Berjalan
+    </div>
 
     <div class="info-box">
 
       <div class="info-row">
-        <span>Periode Week</span>
-        <strong id="weekPeriod">-</strong>
+        <span>Periode</span>
+        <strong id="periodText">-</strong>
       </div>
 
       <div class="info-row">
-        <span>Hari berjalan</span>
-        <strong id="dayNumber">-</strong>
+        <span>Hari ke</span>
+        <strong id="dayText">-</strong>
       </div>
 
       <div class="info-row">
         <span>Target hari ini</span>
-        <strong id="todayTarget">0 Qty</strong>
+        <strong id="todayTargetTotal">
+          0 Qty
+        </strong>
       </div>
 
       <div class="info-row">
-        <span>Pencapaian hari ini</span>
-        <strong id="todayActual">0 Qty</strong>
+        <span>Actual hari ini</span>
+        <strong id="todayActualTotal">
+          0 Qty
+        </strong>
       </div>
 
       <div class="info-row">
         <span>Selisih hari ini</span>
-        <strong id="todayDifference">0 Qty</strong>
+        <strong id="todayDifferenceTotal">
+          0 Qty
+        </strong>
       </div>
 
       <div class="info-row">
         <span>Sisa target Week</span>
-        <strong id="remainingTarget">0 Qty</strong>
+        <strong id="remainingTotal">
+          0 Qty
+        </strong>
       </div>
 
       <div class="info-row">
         <span>Sisa hari</span>
-        <strong id="remainingDays">0</strong>
+        <strong id="remainingDays">
+          0
+        </strong>
       </div>
 
       <div class="info-row">
-        <span>Target kebutuhan hari berikutnya</span>
-        <strong id="nextTarget">0 Qty</strong>
+        <span>Target kebutuhan besok</span>
+        <strong id="nextTargetTotal">
+          0 Qty
+        </strong>
       </div>
 
     </div>
 
-    <button class="primary-btn" onclick="openAddItem()">
+
+    <div
+      class="alert"
+      id="mainAlert">
+      Belum ada target PSM.
+    </div>
+
+
+    <button
+      class="primary-btn"
+      onclick="openAddItem()">
       ＋ Tambah Item PSM
     </button>
 
-    <div class="section-title">📦 Daftar Item PSM</div>
+
+    <!-- ITEMS -->
+
+    <div class="section-title">
+      📦 Pencapaian Per Item
+    </div>
 
     <div id="itemsContainer"></div>
 
   </section>
 
 
-  <section id="dailySection" style="display:none">
+  <!-- DAILY -->
 
-    <div class="section-title">📅 Monitoring Harian</div>
+  <section
+    id="dailySection"
+    style="display:none">
 
-    <div class="card">
-      <div class="card-label">Tanggal monitoring</div>
-      <input
-        type="date"
-        id="dailyDate"
-        style="width:100%;margin-top:8px;padding:11px;border:1px solid #dce3ed;border-radius:10px;"
-        onchange="renderDaily()"
-      >
+    <div class="section-title">
+      📅 Input Pencapaian Harian
     </div>
 
-    <div id="dailyContainer" style="margin-top:10px"></div>
+    <div class="card">
+
+      <div class="card-label">
+        Pilih tanggal monitoring
+      </div>
+
+      <div
+        class="day-selector"
+        id="daySelector"
+        style="margin-top:10px">
+      </div>
+
+    </div>
+
+
+    <div
+      class="section-title"
+      id="dailyTitle">
+      Hari
+    </div>
+
+
+    <div
+      id="dailySummary">
+    </div>
+
+
+    <div id="dailyItems">
+    </div>
 
   </section>
 
 
-  <section id="summarySection" style="display:none">
+  <!-- SUMMARY -->
 
-    <div class="section-title">📈 Rekap Bulanan</div>
+  <section
+    id="summarySection"
+    style="display:none">
 
-    <div class="card">
-      <div class="card-label">Bulan</div>
-      <div class="card-value" id="summaryMonth">-</div>
+    <div class="section-title">
+      📈 Rekap Bulanan
     </div>
 
-    <div class="section-title">Week 1–4</div>
+    <div
+      class="card"
+      id="monthSummaryCard">
+    </div>
+
+    <div class="section-title">
+      Week 1–4
+    </div>
 
     <div class="table-wrap">
+
       <table>
+
         <thead>
+
           <tr>
             <th>Week</th>
             <th>Periode</th>
             <th>Target</th>
-            <th>Aktual</th>
+            <th>Actual</th>
+            <th>Selisih</th>
             <th>ACV</th>
           </tr>
+
         </thead>
-        <tbody id="summaryTable"></tbody>
+
+        <tbody
+          id="summaryTable">
+        </tbody>
+
       </table>
+
     </div>
 
   </section>
@@ -605,25 +923,45 @@ th{
 </main>
 
 
-<!-- MODAL TAMBAH ITEM -->
+<!-- ADD ITEM MODAL -->
 
-<div class="modal" id="itemModal">
+<div
+  class="modal"
+  id="itemModal">
 
   <div class="modal-box">
 
-    <div class="modal-title">➕ Tambah Item PSM</div>
-
-    <div class="modal-field">
-      <label>Nama Produk / Item</label>
-      <input id="itemName" placeholder="Contoh: AQUA 600ML">
+    <div class="modal-title">
+      ➕ Tambah Item PSM
     </div>
 
-    <div class="modal-field">
-      <label>Target Qty</label>
-      <input id="itemTarget" type="number" min="0" placeholder="Contoh: 100">
+    <div class="form-group">
+
+      <label>
+        Nama Produk / Item
+      </label>
+
+      <input
+        id="itemName"
+        placeholder="Contoh: AQUA 600ML">
+
     </div>
 
-    <div class="modal-actions">
+    <div class="form-group">
+
+      <label>
+        Target Qty Week
+      </label>
+
+      <input
+        id="itemTarget"
+        type="number"
+        min="1"
+        placeholder="Contoh: 100">
+
+    </div>
+
+    <div class="form-actions">
 
       <button
         class="secondary-btn"
@@ -645,23 +983,41 @@ th{
 </div>
 
 
-<!-- NAV -->
+<div
+  class="toast"
+  id="toast">
+</div>
+
+
+<!-- BOTTOM NAV -->
 
 <nav class="bottom-nav">
 
-  <button class="nav-btn active" onclick="showSection('dashboard',this)">
+  <button
+    class="nav-btn active"
+    onclick="showSection('dashboard',this)">
+
     <span>🏠</span>
     Dashboard
+
   </button>
 
-  <button class="nav-btn" onclick="showSection('daily',this)">
+  <button
+    class="nav-btn"
+    onclick="showSection('daily',this)">
+
     <span>📅</span>
-    Harian
+    Input Harian
+
   </button>
 
-  <button class="nav-btn" onclick="showSection('summary',this)">
+  <button
+    class="nav-btn"
+    onclick="showSection('summary',this)">
+
     <span>📊</span>
     Rekap
+
   </button>
 
 </nav>
@@ -669,25 +1025,38 @@ th{
 
 <script>
 
-const STORAGE_KEY = "psm_monitoring_v1";
+/* =====================================================
+   PSM MONITORING
+   DATA LOCAL STORAGE
+===================================================== */
 
-let data = loadData();
+const STORAGE_KEY =
+  "PSM_MONITORING_V2";
+
+let db = loadDB();
 
 let selectedMonth = "";
+
 let selectedWeek = 1;
 
-let currentSection = "dashboard";
+let selectedDate = "";
+
+let currentSection =
+  "dashboard";
 
 
-/* =========================
+/* =====================================================
    STORAGE
-========================= */
+===================================================== */
 
-function loadData(){
+function loadDB(){
 
   try{
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
 
     if(saved){
 
@@ -695,9 +1064,9 @@ function loadData(){
 
     }
 
-  }catch(e){
+  }catch(error){
 
-    console.error(e);
+    console.error(error);
 
   }
 
@@ -706,60 +1075,92 @@ function loadData(){
 }
 
 
-function saveData(){
+function saveDB(){
 
   localStorage.setItem(
     STORAGE_KEY,
-    JSON.stringify(data)
+    JSON.stringify(db)
   );
 
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =====================================================
+   INITIAL
+===================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-  const now = new Date();
+    const now =
+      new Date();
 
-  selectedMonth =
-    now.getFullYear() +
-    "-" +
-    String(now.getMonth()+1).padStart(2,"0");
+    selectedMonth =
+      now.getFullYear() +
+      "-" +
+      String(
+        now.getMonth()+1
+      ).padStart(2,"0");
 
-  document.getElementById("monthInput").value =
-    selectedMonth;
-
-  document
-    .getElementById("monthInput")
-    .addEventListener("change",function(){
-
-      selectedMonth = this.value;
-
-      selectedWeek = 1;
-
-      renderAll();
-
-    });
-
-  renderAll();
-
-});
+    document
+      .getElementById(
+        "monthInput"
+      )
+      .value =
+      selectedMonth;
 
 
-/* =========================
-   MONTH / WEEK
-========================= */
+    document
+      .getElementById(
+        "monthInput"
+      )
+      .addEventListener(
+        "change",
+        function(){
+
+          selectedMonth =
+            this.value;
+
+          selectedWeek = 1;
+
+          selectedDate = "";
+
+          renderAll();
+
+        }
+      );
+
+
+    renderAll();
+
+  }
+);
+
+
+/* =====================================================
+   MONTH
+===================================================== */
 
 function getMonthInfo(){
 
-  const [year,month] =
-    selectedMonth.split("-").map(Number);
+  const parts =
+    selectedMonth
+      .split("-")
+      .map(Number);
+
+  const year =
+    parts[0];
+
+  const month =
+    parts[1];
 
   const lastDay =
-    new Date(year,month,0).getDate();
+    new Date(
+      year,
+      month,
+      0
+    ).getDate();
 
   return {
     year,
@@ -770,274 +1171,576 @@ function getMonthInfo(){
 }
 
 
-function getWeekPeriod(week){
+/* =====================================================
+   WEEK PERIOD
+===================================================== */
 
-  const info = getMonthInfo();
+function getWeekPeriod(
+  week
+){
 
-  let start;
-  let end;
+  const info =
+    getMonthInfo();
+
+  let start = 1;
+
+  let end = 7;
+
 
   if(week === 1){
 
     start = 1;
-    end = Math.min(7,info.lastDay);
 
-  }else if(week === 2){
-
-    start = 8;
-    end = Math.min(15,info.lastDay);
-
-  }else if(week === 3){
-
-    start = 16;
-    end = Math.min(23,info.lastDay);
-
-  }else{
-
-    start = 24;
-    end = info.lastDay;
+    end =
+      Math.min(
+        7,
+        info.lastDay
+      );
 
   }
+
+
+  if(week === 2){
+
+    start = 8;
+
+    end =
+      Math.min(
+        15,
+        info.lastDay
+      );
+
+  }
+
+
+  if(week === 3){
+
+    start = 16;
+
+    end =
+      Math.min(
+        23,
+        info.lastDay
+      );
+
+  }
+
+
+  if(week === 4){
+
+    start = 24;
+
+    end =
+      info.lastDay;
+
+  }
+
 
   return {
     start,
     end,
-    days:end-start+1
+    days:
+      Math.max(
+        0,
+        end-start+1
+      )
   };
 
 }
 
 
+/* =====================================================
+   WEEK KEY
+===================================================== */
+
 function getWeekKey(){
 
-  return selectedMonth + "_W" + selectedWeek;
+  return (
+    selectedMonth +
+    "_W" +
+    selectedWeek
+  );
 
 }
 
+
+/* =====================================================
+   GET WEEK DATA
+===================================================== */
 
 function getWeekData(){
 
-  const key = getWeekKey();
+  const key =
+    getWeekKey();
 
-  if(!data[key]){
 
-    data[key] = {
+  if(!db[key]){
+
+    db[key] = {
+
       items:[],
+
+      /*
+        daily:
+        {
+          "2026-08-01":{
+             itemId:10,
+             itemId2:20
+          }
+        }
+      */
+
       daily:{}
+
     };
 
-    saveData();
+    saveDB();
 
   }
 
-  return data[key];
+
+  if(!db[key].items){
+
+    db[key].items = [];
+
+  }
+
+
+  if(!db[key].daily){
+
+    db[key].daily = {};
+
+  }
+
+
+  return db[key];
 
 }
 
 
-/* =========================
+/* =====================================================
    WEEK TABS
-========================= */
+===================================================== */
 
 function renderWeeks(){
 
-  const container =
-    document.getElementById("weekTabs");
+  const box =
+    document.getElementById(
+      "weekTabs"
+    );
 
-  container.innerHTML = "";
+  box.innerHTML = "";
 
-  for(let i=1;i<=4;i++){
+
+  for(
+    let week=1;
+    week<=4;
+    week++
+  ){
 
     const period =
-      getWeekPeriod(i);
+      getWeekPeriod(
+        week
+      );
 
-    const btn =
-      document.createElement("button");
 
-    btn.className =
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.className =
       "week-tab " +
-      (i===selectedWeek ? "active":"");
+      (
+        week === selectedWeek
+          ? "active"
+          : ""
+      );
 
-    btn.innerHTML =
-      "<strong>Week "+i+"</strong>" +
+
+    button.innerHTML =
+      "<strong>Week " +
+      week +
+      "</strong>" +
       period.start +
       "-" +
       period.end;
 
-    btn.onclick = ()=>{
 
-      selectedWeek = i;
+    button.onclick =
+      function(){
 
-      renderAll();
+        selectedWeek =
+          week;
 
-    };
+        selectedDate = "";
 
-    container.appendChild(btn);
+        renderAll();
+
+      };
+
+
+    box.appendChild(
+      button
+    );
 
   }
 
 }
 
 
-/* =========================
-   ADD ITEM
-========================= */
+/* =====================================================
+   ITEM MODAL
+===================================================== */
 
 function openAddItem(){
 
-  document.getElementById("itemName").value = "";
+  document.getElementById(
+    "itemName"
+  ).value = "";
 
-  document.getElementById("itemTarget").value = "";
+  document.getElementById(
+    "itemTarget"
+  ).value = "";
 
-  document
-    .getElementById("itemModal")
-    .classList.add("show");
+
+  document.getElementById(
+    "itemModal"
+  ).classList.add(
+    "show"
+  );
 
 }
 
 
 function closeModal(){
 
-  document
-    .getElementById("itemModal")
-    .classList.remove("show");
+  document.getElementById(
+    "itemModal"
+  ).classList.remove(
+    "show"
+  );
 
 }
 
 
+/* =====================================================
+   SAVE ITEM
+===================================================== */
+
 function saveItem(){
 
   const name =
-    document
-      .getElementById("itemName")
-      .value.trim();
+    document.getElementById(
+      "itemName"
+    ).value.trim();
+
 
   const target =
     Number(
-      document
-        .getElementById("itemTarget")
-        .value
+      document.getElementById(
+        "itemTarget"
+      ).value
     );
+
 
   if(!name){
 
-    alert("Nama produk wajib diisi.");
+    showToast(
+      "Nama produk wajib diisi."
+    );
 
     return;
 
   }
 
-  if(target <= 0){
 
-    alert("Target harus lebih dari 0.");
+  if(
+    !Number.isFinite(target) ||
+    target <= 0
+  ){
+
+    showToast(
+      "Target harus lebih dari 0."
+    );
 
     return;
 
   }
+
 
   const week =
     getWeekData();
 
+
+  const id =
+    "item_" +
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .slice(2,8);
+
+
   week.items.push({
 
-    id:Date.now().toString(),
+    id:id,
 
     name:name,
 
-    target:target,
-
-    actual:0
+    target:target
 
   });
 
-  saveData();
+
+  saveDB();
 
   closeModal();
 
   renderAll();
 
+  showToast(
+    "Item PSM berhasil ditambahkan."
+  );
+
 }
 
 
-/* =========================
+/* =====================================================
    DELETE ITEM
-========================= */
+===================================================== */
 
-function deleteItem(id){
+function deleteItem(
+  id
+){
 
-  if(!confirm("Hapus item ini?")) return;
+  if(
+    !confirm(
+      "Hapus item ini beserta data hariannya?"
+    )
+  ){
+
+    return;
+
+  }
+
 
   const week =
     getWeekData();
+
 
   week.items =
     week.items.filter(
-      item=>item.id!==id
+      item =>
+        item.id !== id
     );
 
-  saveData();
+
+  Object.keys(
+    week.daily
+  ).forEach(
+    date => {
+
+      if(
+        week.daily[date]
+      ){
+
+        delete week.daily[
+          date
+        ][id];
+
+      }
+
+    }
+  );
+
+
+  saveDB();
 
   renderAll();
+
+  showToast(
+    "Item berhasil dihapus."
+  );
 
 }
 
 
-/* =========================
-   UPDATE ACTUAL
-========================= */
+/* =====================================================
+   UPDATE TARGET
+===================================================== */
 
-function updateActual(id,value){
+function updateItemTarget(
+  id,
+  value
+){
+
+  const target =
+    Number(value);
+
+
+  if(
+    !Number.isFinite(target) ||
+    target < 0
+  ){
+
+    return;
+
+  }
+
 
   const week =
     getWeekData();
 
+
   const item =
     week.items.find(
-      x=>x.id===id
+      x =>
+        x.id === id
     );
+
 
   if(!item) return;
 
-  item.actual =
-    Math.max(
-      0,
-      Number(value)||0
-    );
 
-  saveData();
+  item.target =
+    target;
+
+
+  saveDB();
 
   renderAll();
 
 }
 
 
-/* =========================
-   TOTAL
-========================= */
+/* =====================================================
+   GET ITEM ACTUAL TOTAL
+===================================================== */
+
+function getItemActual(
+  itemId
+){
+
+  const week =
+    getWeekData();
+
+  let total = 0;
+
+
+  Object.keys(
+    week.daily
+  ).forEach(
+    date => {
+
+      const day =
+        week.daily[date];
+
+
+      if(day){
+
+        total +=
+          Number(
+            day[itemId] || 0
+          );
+
+      }
+
+    }
+  );
+
+
+  return total;
+
+}
+
+
+/* =====================================================
+   GET ITEM ACTUAL UNTIL DATE
+===================================================== */
+
+function getItemActualUntilDate(
+  itemId,
+  endDate
+){
+
+  const week =
+    getWeekData();
+
+  let total = 0;
+
+
+  Object.keys(
+    week.daily
+  ).forEach(
+    date => {
+
+      if(
+        date <= endDate
+      ){
+
+        total +=
+          Number(
+            week.daily[date]?.[itemId] || 0
+          );
+
+      }
+
+    }
+  );
+
+
+  return total;
+
+}
+
+
+/* =====================================================
+   GET TOTALS
+===================================================== */
 
 function getTotals(){
 
   const week =
     getWeekData();
 
+
   let target = 0;
+
   let actual = 0;
 
-  week.items.forEach(item=>{
 
-    target += Number(item.target)||0;
+  week.items.forEach(
+    item => {
 
-    actual += Number(item.actual)||0;
+      target +=
+        Number(
+          item.target
+        ) || 0;
 
-  });
+
+      actual +=
+        getItemActual(
+          item.id
+        );
+
+    }
+  );
+
 
   const difference =
     actual-target;
 
+
   const acv =
     target > 0
-      ? (actual/target)*100
+      ? (
+          actual /
+          target
+        ) * 100
       : 0;
+
 
   return {
     target,
@@ -1049,252 +1752,596 @@ function getTotals(){
 }
 
 
-/* =========================
-   DAILY DATA
-========================= */
+/* =====================================================
+   DATE HELPERS
+===================================================== */
 
-function getTodayString(){
-
-  const d = new Date();
-
-  return (
-    d.getFullYear() +
-    "-" +
-    String(d.getMonth()+1).padStart(2,"0") +
-    "-" +
-    String(d.getDate()).padStart(2,"0")
-  );
-
-}
-
-
-function getDateFromParts(day){
-
-  const [year,month] =
-    selectedMonth.split("-");
+function dateString(
+  year,
+  month,
+  day
+){
 
   return (
     year +
     "-" +
-    month +
+    String(month)
+      .padStart(2,"0") +
     "-" +
-    String(day).padStart(2,"0")
+    String(day)
+      .padStart(2,"0")
   );
 
 }
 
 
-function getCurrentDayIndex(){
+function getWeekDates(){
+
+  const info =
+    getMonthInfo();
 
   const period =
-    getWeekPeriod(selectedWeek);
+    getWeekPeriod(
+      selectedWeek
+    );
 
-  const today =
-    new Date();
 
-  const [year,month] =
-    selectedMonth.split("-").map(Number);
+  const dates = [];
 
-  if(
-    today.getFullYear() !== year ||
-    today.getMonth()+1 !== month
+
+  for(
+    let day=period.start;
+    day<=period.end;
+    day++
   ){
 
-    return 1;
+    dates.push(
+      dateString(
+        info.year,
+        info.month,
+        day
+      )
+    );
 
   }
 
-  const day =
-    today.getDate();
 
-  if(day < period.start){
-
-    return 1;
-
-  }
-
-  if(day > period.end){
-
-    return period.days;
-
-  }
-
-  return day-period.start+1;
+  return dates;
 
 }
 
 
-function getDailyActual(){
+function getToday(){
+
+  const d =
+    new Date();
+
+
+  return dateString(
+    d.getFullYear(),
+    d.getMonth()+1,
+    d.getDate()
+  );
+
+}
+
+
+/* =====================================================
+   CURRENT DAY INDEX
+===================================================== */
+
+function getCurrentDayIndex(){
+
+  const dates =
+    getWeekDates();
+
+
+  const today =
+    getToday();
+
+
+  const index =
+    dates.indexOf(
+      today
+    );
+
+
+  if(index >= 0){
+
+    return index;
+
+  }
+
+
+  /*
+    Jika bulan yang dilihat
+    bukan bulan sekarang,
+    default ke hari pertama.
+  */
+
+  return 0;
+
+}
+
+
+/* =====================================================
+   SELECTED DAY
+===================================================== */
+
+function getSelectedDate(){
+
+  const dates =
+    getWeekDates();
+
+
+  if(
+    selectedDate &&
+    dates.includes(
+      selectedDate
+    )
+  ){
+
+    return selectedDate;
+
+  }
+
+
+  const today =
+    getToday();
+
+
+  if(
+    dates.includes(
+      today
+    )
+  ){
+
+    return today;
+
+  }
+
+
+  return dates[0];
+
+}
+
+
+/* =====================================================
+   DAILY ACTUAL TOTAL
+===================================================== */
+
+function getDailyTotal(
+  date
+){
 
   const week =
     getWeekData();
 
+  const day =
+    week.daily[date] || {};
+
+
   let total = 0;
 
-  Object.values(week.daily || {})
-    .forEach(v=>{
 
-      total += Number(v)||0;
+  week.items.forEach(
+    item => {
 
-    });
+      total +=
+        Number(
+          day[item.id] || 0
+        );
+
+    }
+  );
+
 
   return total;
 
 }
 
 
-function getDailyActualForDate(date){
+/* =====================================================
+   TOTAL ACTUAL UNTIL DATE
+===================================================== */
+
+function getTotalActualUntil(
+  date
+){
 
   const week =
     getWeekData();
 
-  return Number(
-    (week.daily || {})[date] || 0
+  let total = 0;
+
+
+  Object.keys(
+    week.daily
+  ).forEach(
+    d => {
+
+      if(
+        d <= date
+      ){
+
+        total +=
+          getDailyTotal(
+            d
+          );
+
+      }
+
+    }
   );
 
+
+  return total;
+
 }
 
 
-function setDailyActual(date,value){
+/* =====================================================
+   ROLLING TOTAL
+===================================================== */
 
-  const week =
-    getWeekData();
+function getRollingTotal(){
 
-  if(!week.daily){
-
-    week.daily = {};
-
-  }
-
-  week.daily[date] =
-    Math.max(
-      0,
-      Number(value)||0
+  const period =
+    getWeekPeriod(
+      selectedWeek
     );
 
-  saveData();
 
-  renderAll();
-
-}
+  const dates =
+    getWeekDates();
 
 
-/* =========================
-   ROLLING TARGET
-========================= */
+  const selected =
+    getSelectedDate();
 
-function getRollingInfo(){
+
+  const dayIndex =
+    Math.max(
+      0,
+      dates.indexOf(
+        selected
+      )
+    );
+
 
   const totals =
     getTotals();
 
-  const period =
-    getWeekPeriod(selectedWeek);
 
-  const dayIndex =
-    getCurrentDayIndex();
-
-  const date =
-    getDateFromParts(
-      period.start + dayIndex - 1
+  const actualBeforeToday =
+    getTotalActualUntil(
+      selected
     );
 
-  const actualToday =
-    getDailyActualForDate(date);
 
   /*
-    Target sampai hari ini dihitung
-    berdasarkan pembagian target Week.
+    Target dasar hari yang dipilih.
+    Rolling:
+    sisa target / jumlah hari termasuk hari ini
   */
 
-  const baseDaily =
-    totals.target / period.days;
+  const remainingBefore =
+    Math.max(
+      0,
+      totals.target -
+      (
+        actualBeforeToday -
+        getDailyTotal(
+          selected
+        )
+      )
+    );
+
+
+  const remainingDaysIncludingToday =
+    Math.max(
+      1,
+      dates.length -
+      dayIndex
+    );
+
 
   const targetToday =
-    Math.ceil(
-      baseDaily
+    remainingBefore /
+    remainingDaysIncludingToday;
+
+
+  const actualToday =
+    getDailyTotal(
+      selected
     );
 
-  const accumulatedTarget =
-    Math.ceil(
-      baseDaily * dayIndex
-    );
 
-  const accumulatedActual =
-    getDailyActual();
-
-  const remaining =
+  const remainingAfterToday =
     Math.max(
       0,
-      totals.target-accumulatedActual
+      totals.target -
+      actualBeforeToday
     );
 
-  const remainingDays =
+
+  const daysAfterToday =
     Math.max(
       0,
-      period.days-dayIndex
+      dates.length -
+      dayIndex -
+      1
     );
 
-  let nextTarget = 0;
 
-  if(remainingDays > 0){
+  const targetTomorrow =
+    daysAfterToday > 0
+      ? remainingAfterToday /
+        daysAfterToday
+      : 0;
 
-    nextTarget =
-      Math.ceil(
-        remaining /
-        remainingDays
-      );
-
-  }
 
   return {
+
     period,
+
+    dates,
+
+    selected,
+
     dayIndex,
-    date,
-    actualToday,
+
+    dayNumber:
+      dayIndex+1,
+
     targetToday,
-    accumulatedTarget,
-    accumulatedActual,
-    remaining,
-    remainingDays,
-    nextTarget
+
+    actualToday,
+
+    differenceToday:
+      actualToday -
+      targetToday,
+
+    remaining:
+      remainingAfterToday,
+
+    daysAfterToday,
+
+    targetTomorrow
+
   };
 
 }
 
 
-/* =========================
+/* =====================================================
+   ITEM ROLLING
+===================================================== */
+
+function getItemRolling(
+  item,
+  date
+){
+
+  const dates =
+    getWeekDates();
+
+
+  const index =
+    Math.max(
+      0,
+      dates.indexOf(
+        date
+      )
+    );
+
+
+  const totalDays =
+    dates.length;
+
+
+  const actualBefore =
+    getItemActualUntilDate(
+      item.id,
+      date
+    );
+
+
+  const actualToday =
+    getDailyItemActual(
+      date,
+      item.id
+    );
+
+
+  const actualBeforeToday =
+    actualBefore -
+    actualToday;
+
+
+  const remainingBefore =
+    Math.max(
+      0,
+      Number(item.target) -
+      actualBeforeToday
+    );
+
+
+  const daysIncludingToday =
+    Math.max(
+      1,
+      totalDays-index
+    );
+
+
+  const targetToday =
+    remainingBefore /
+    daysIncludingToday;
+
+
+  const remainingAfter =
+    Math.max(
+      0,
+      Number(item.target) -
+      actualBefore
+    );
+
+
+  const daysAfter =
+    Math.max(
+      0,
+      totalDays-index-1
+    );
+
+
+  const targetTomorrow =
+    daysAfter > 0
+      ? remainingAfter /
+        daysAfter
+      : 0;
+
+
+  return {
+
+    actualToday,
+
+    targetToday,
+
+    differenceToday:
+      actualToday -
+      targetToday,
+
+    totalActual:
+      actualBefore,
+
+    remaining:
+      remainingAfter,
+
+    targetTomorrow
+
+  };
+
+}
+
+
+/* =====================================================
+   DAILY ITEM ACTUAL
+===================================================== */
+
+function getDailyItemActual(
+  date,
+  itemId
+){
+
+  const week =
+    getWeekData();
+
+
+  return Number(
+    week.daily[date]?.[itemId] || 0
+  );
+
+}
+
+
+/* =====================================================
+   SET DAILY ITEM ACTUAL
+===================================================== */
+
+function setDailyItemActual(
+  date,
+  itemId,
+  value
+){
+
+  const number =
+    Number(value);
+
+
+  if(
+    !Number.isFinite(number) ||
+    number < 0
+  ){
+
+    return;
+
+  }
+
+
+  const week =
+    getWeekData();
+
+
+  if(
+    !week.daily[date]
+  ){
+
+    week.daily[date] = {};
+
+  }
+
+
+  week.daily[date][itemId] =
+    number;
+
+
+  saveDB();
+
+  renderAll();
+
+  showToast(
+    "Pencapaian berhasil disimpan."
+  );
+
+}
+
+
+/* =====================================================
    RENDER DASHBOARD
-========================= */
+===================================================== */
 
 function renderDashboard(){
 
   const totals =
     getTotals();
 
-  const rolling =
-    getRollingInfo();
 
-  document.getElementById("totalTarget")
-    .textContent =
-    formatNumber(totals.target);
+  document.getElementById(
+    "totalTarget"
+  ).textContent =
+    fmt(totals.target);
 
-  document.getElementById("totalActual")
-    .textContent =
-    formatNumber(totals.actual);
 
-  document.getElementById("totalDifference")
-    .textContent =
-    (totals.difference >= 0 ? "+" : "") +
-    formatNumber(totals.difference);
+  document.getElementById(
+    "totalActual"
+  ).textContent =
+    fmt(totals.actual);
 
-  const acvElement =
-    document.getElementById("totalAcv");
 
-  acvElement.textContent =
-    formatPercent(totals.acv);
+  document.getElementById(
+    "totalDifference"
+  ).textContent =
+    (
+      totals.difference >= 0
+        ? "+"
+        : ""
+    ) +
+    fmt(totals.difference);
 
-  acvElement.className =
+
+  const acv =
+    document.getElementById(
+      "totalACV"
+    );
+
+
+  acv.textContent =
+    fmtPercent(
+      totals.acv
+    );
+
+
+  acv.className =
     "acv " +
     (
       totals.acv >= 100
@@ -1304,15 +2351,23 @@ function renderDashboard(){
           : "bad"
     );
 
-  const status =
-    document.getElementById("statusText");
 
-  if(totals.target === 0){
+  const status =
+    document.getElementById(
+      "weekStatus"
+    );
+
+
+  if(
+    totals.target === 0
+  ){
 
     status.textContent =
       "Belum ada target";
 
-  }else if(totals.acv >= 100){
+  }else if(
+    totals.acv >= 100
+  ){
 
     status.textContent =
       "🟢 TARGET TERCAPAI";
@@ -1324,103 +2379,263 @@ function renderDashboard(){
 
   }
 
+
   const progress =
     totals.target > 0
-      ? (totals.actual/totals.target)*100
+      ? (
+          totals.actual /
+          totals.target
+        ) * 100
       : 0;
 
-  document.getElementById("progressBar")
-    .style.width =
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
     Math.min(
       100,
-      Math.max(0,progress)
-    ) + "%";
+      Math.max(
+        0,
+        progress
+      )
+    ) +
+    "%";
 
-  const p =
-    rolling.period;
 
-  document.getElementById("weekPeriod")
-    .textContent =
-    p.start +
+  const rolling =
+    getRollingTotal();
+
+
+  document.getElementById(
+    "periodText"
+  ).textContent =
+    rolling.period.start +
     "-" +
-    p.end +
+    rolling.period.end +
     " " +
-    formatMonth(selectedMonth);
+    monthName(
+      selectedMonth
+    );
 
-  document.getElementById("dayNumber")
-    .textContent =
-    rolling.dayIndex +
+
+  document.getElementById(
+    "dayText"
+  ).textContent =
+    rolling.dayNumber +
     " / " +
-    p.days;
+    rolling.dates.length;
 
-  document.getElementById("todayTarget")
-    .textContent =
-    formatNumber(
+
+  document.getElementById(
+    "todayTargetTotal"
+  ).textContent =
+    fmtDecimal(
       rolling.targetToday
     ) +
     " Qty";
 
-  document.getElementById("todayActual")
-    .textContent =
-    formatNumber(
+
+  document.getElementById(
+    "todayActualTotal"
+  ).textContent =
+    fmt(
       rolling.actualToday
     ) +
     " Qty";
 
-  const todayDifference =
-    rolling.actualToday -
-    rolling.targetToday;
 
-  document.getElementById("todayDifference")
-    .textContent =
-    (todayDifference >= 0 ? "+" : "") +
-    formatNumber(todayDifference) +
+  document.getElementById(
+    "todayDifferenceTotal"
+  ).textContent =
+    (
+      rolling.differenceToday >= 0
+        ? "+"
+        : ""
+    ) +
+    fmtDecimal(
+      rolling.differenceToday
+    ) +
     " Qty";
 
-  document.getElementById("remainingTarget")
-    .textContent =
-    formatNumber(
+
+  document.getElementById(
+    "remainingTotal"
+  ).textContent =
+    fmt(
       rolling.remaining
     ) +
     " Qty";
 
-  document.getElementById("remainingDays")
-    .textContent =
-    rolling.remainingDays;
 
-  document.getElementById("nextTarget")
-    .textContent =
-    rolling.remainingDays > 0
-      ? formatNumber(rolling.nextTarget)+" Qty"
+  document.getElementById(
+    "remainingDays"
+  ).textContent =
+    rolling.daysAfterToday;
+
+
+  document.getElementById(
+    "nextTargetTotal"
+  ).textContent =
+    rolling.daysAfterToday > 0
+      ? fmtDecimal(
+          rolling.targetTomorrow
+        ) +
+        " Qty"
       : "Week selesai";
+
+
+  renderMainAlert(
+    totals,
+    rolling
+  );
 
 }
 
 
-/* =========================
+/* =====================================================
+   MAIN ALERT
+===================================================== */
+
+function renderMainAlert(
+  totals,
+  rolling
+){
+
+  const box =
+    document.getElementById(
+      "mainAlert"
+    );
+
+
+  if(
+    totals.target === 0
+  ){
+
+    box.className =
+      "alert warning";
+
+    box.textContent =
+      "⚠️ Belum ada item PSM. Tambahkan item dan target Week.";
+
+    return;
+
+  }
+
+
+  if(
+    totals.acv >= 100
+  ){
+
+    box.className =
+      "alert good";
+
+    box.textContent =
+      "🏆 Target Week sudah tercapai. Total actual sudah memenuhi target.";
+
+    return;
+
+  }
+
+
+  if(
+    rolling.daysAfterToday === 0
+  ){
+
+    box.className =
+      "alert bad";
+
+    box.textContent =
+      "🔴 Week selesai tetapi target belum tercapai. Kekurangan: " +
+      fmt(rolling.remaining) +
+      " Qty.";
+
+    return;
+
+  }
+
+
+  if(
+    rolling.targetTomorrow >
+    (
+      totals.target /
+      rolling.dates.length
+    ) * 1.25
+  ){
+
+    box.className =
+      "alert bad";
+
+    box.textContent =
+      "🔴 Perlu dikejar. Target kebutuhan besok meningkat menjadi " +
+      fmtDecimal(
+        rolling.targetTomorrow
+      ) +
+      " Qty.";
+
+    return;
+
+  }
+
+
+  if(
+    rolling.differenceToday < 0
+  ){
+
+    box.className =
+      "alert warning";
+
+    box.textContent =
+      "🟡 Hari ini masih kurang " +
+      fmtDecimal(
+        Math.abs(
+          rolling.differenceToday
+        )
+      ) +
+      " Qty. Kekurangan sudah dibawa ke target berikutnya.";
+
+    return;
+
+  }
+
+
+  box.className =
+    "alert good";
+
+  box.textContent =
+    "🟢 Progress hari ini masih aman. Tetap kejar target Week.";
+
+}
+
+
+/* =====================================================
    RENDER ITEMS
-========================= */
+===================================================== */
 
 function renderItems(){
 
-  const container =
+  const box =
     document.getElementById(
       "itemsContainer"
     );
 
+
   const week =
     getWeekData();
 
-  container.innerHTML = "";
 
-  if(!week.items.length){
+  box.innerHTML = "";
 
-    container.innerHTML = `
+
+  if(
+    week.items.length === 0
+  ){
+
+    box.innerHTML = `
       <div class="empty">
         <div class="empty-icon">📦</div>
         <strong>Belum ada item PSM</strong>
-        <div style="margin-top:5px">
-          Tambahkan produk PSM untuk Week ini.
+        <div style="margin-top:6px">
+          Klik "Tambah Item PSM" untuk memasukkan produk.
         </div>
       </div>
     `;
@@ -1429,209 +2644,478 @@ function renderItems(){
 
   }
 
-  week.items.forEach(item=>{
 
-    const target =
-      Number(item.target)||0;
+  const selected =
+    getSelectedDate();
 
-    const actual =
-      Number(item.actual)||0;
 
-    const achievement =
-      target > 0
-        ? (actual/target)*100
-        : 0;
+  week.items.forEach(
+    item => {
 
-    const difference =
-      actual-target;
+      const target =
+        Number(
+          item.target
+        ) || 0;
 
-    let colorClass =
-      achievement >= 100
-        ? "good"
-        : achievement >= 80
-          ? "warning"
-          : "bad";
 
-    const div =
-      document.createElement("div");
+      const actual =
+        getItemActual(
+          item.id
+        );
 
-    div.className = "item";
 
-    div.innerHTML = `
+      const achievement =
+        target > 0
+          ? (
+              actual /
+              target
+            ) * 100
+          : 0;
 
-      <div class="item-head">
 
-        <div>
-          <div class="item-name">
-            ${escapeHtml(item.name)}
+      const difference =
+        actual -
+        target;
+
+
+      const rolling =
+        getItemRolling(
+          item,
+          selected
+        );
+
+
+      let color =
+        achievement >= 100
+          ? "good"
+          : achievement >= 80
+            ? "warning"
+            : "bad";
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "item";
+
+
+      div.innerHTML = `
+
+        <div class="item-head">
+
+          <div>
+
+            <div class="item-name">
+              ${esc(item.name)}
+            </div>
+
+            <div class="item-target">
+              Target Week:
+              <strong>
+                ${fmt(target)} Qty
+              </strong>
+            </div>
+
           </div>
 
-          <div style="font-size:11px;color:#7c8798;margin-top:4px">
-            Target: ${formatNumber(target)} Qty
+          <div class="item-percent ${color}">
+            ${fmtPercent(achievement)}
           </div>
+
         </div>
 
-        <div class="item-achievement ${colorClass}">
-          ${formatPercent(achievement)}
+
+        <div class="item-stats">
+
+          <div class="mini">
+
+            <div class="mini-label">
+              ACTUAL
+            </div>
+
+            <div class="mini-value">
+              ${fmt(actual)}
+            </div>
+
+          </div>
+
+
+          <div class="mini">
+
+            <div class="mini-label">
+              SELISIH
+            </div>
+
+            <div class="mini-value ${difference >= 0 ? "good":"bad"}">
+              ${difference >= 0 ? "+" : ""}
+              ${fmt(difference)}
+            </div>
+
+          </div>
+
+
+          <div class="mini">
+
+            <div class="mini-label">
+              SISA
+            </div>
+
+            <div class="mini-value">
+              ${fmt(rolling.remaining)}
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
 
-      <div class="item-grid">
+        <div class="item-stats">
 
-        <div class="field">
+          <div class="mini">
 
-          <label>Target Qty</label>
+            <div class="mini-label">
+              TARGET HARI INI
+            </div>
+
+            <div class="mini-value">
+              ${fmtDecimal(
+                rolling.targetToday
+              )}
+            </div>
+
+          </div>
+
+
+          <div class="mini">
+
+            <div class="mini-label">
+              ACTUAL HARI INI
+            </div>
+
+            <div class="mini-value">
+              ${fmt(
+                rolling.actualToday
+              )}
+            </div>
+
+          </div>
+
+
+          <div class="mini">
+
+            <div class="mini-label">
+              TARGET BESOK
+            </div>
+
+            <div class="mini-value">
+              ${
+                rolling.targetTomorrow > 0
+                  ? fmtDecimal(
+                      rolling.targetTomorrow
+                    )
+                  : "-"
+              }
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="item-actions">
+
+          <div class="status ${color}">
+            ${
+              achievement >= 100
+                ? "🏆 Target item tercapai"
+                : difference < 0
+                  ? "🔴 Masih kurang " +
+                    fmt(
+                      Math.abs(
+                        difference
+                      )
+                    ) +
+                    " Qty"
+                  : "🟢 Progress item aman"
+            }
+          </div>
+
+
+          <button
+            class="small-btn red-btn"
+            onclick="deleteItem('${item.id}')">
+            Hapus
+          </button>
+
+        </div>
+
+
+        <div style="margin-top:12px">
+
+          <div class="card-label">
+            Edit Target Week
+          </div>
 
           <input
             type="number"
+            min="0"
             value="${target}"
-            min="0"
-            onchange="updateTarget('${item.id}',this.value)"
+            onchange="updateItemTarget('${item.id}',this.value)"
+            style="
+              width:100%;
+              margin-top:6px;
+              padding:10px;
+              border:1px solid #e1e7ef;
+              border-radius:10px;
+              outline:none;
+            "
           >
 
         </div>
 
-        <div class="field">
+      `;
 
-          <label>Pencapaian Qty</label>
 
-          <input
-            type="number"
-            value="${actual}"
-            min="0"
-            onchange="updateActual('${item.id}',this.value)"
-          >
+      box.appendChild(
+        div
+      );
 
-        </div>
-
-      </div>
-
-      <div class="item-bottom">
-
-        <div class="status ${colorClass}">
-          ${
-            difference >= 0
-              ? "🟢 Lebih "
-              : "🔴 Kurang "
-          }
-          ${formatNumber(Math.abs(difference))} Qty
-        </div>
-
-        <button
-          class="danger-btn"
-          onclick="deleteItem('${item.id}')">
-          Hapus
-        </button>
-
-      </div>
-
-    `;
-
-    container.appendChild(div);
-
-  });
+    }
+  );
 
 }
 
 
-function updateTarget(id,value){
-
-  const week =
-    getWeekData();
-
-  const item =
-    week.items.find(
-      x=>x.id===id
-    );
-
-  if(!item) return;
-
-  item.target =
-    Math.max(
-      0,
-      Number(value)||0
-    );
-
-  saveData();
-
-  renderAll();
-
-}
-
-
-/* =========================
-   DAILY MONITORING
-========================= */
+/* =====================================================
+   DAILY SCREEN
+===================================================== */
 
 function renderDaily(){
 
-  const container =
-    document.getElementById(
-      "dailyContainer"
-    );
+  const dates =
+    getWeekDates();
 
-  const week =
-    getWeekData();
 
-  let date =
-    document.getElementById(
-      "dailyDate"
-    ).value;
+  const date =
+    getSelectedDate();
 
-  if(!date){
 
-    date =
-      getTodayString();
+  selectedDate =
+    date;
 
-    document.getElementById(
-      "dailyDate"
-    ).value =
-      date;
 
-  }
+  renderDaySelector(
+    dates,
+    date
+  );
 
-  const actual =
-    getDailyActualForDate(date);
 
   const rolling =
-    getRollingInfo();
+    getRollingTotal();
 
-  container.innerHTML = `
 
-    <div class="card">
+  document.getElementById(
+    "dailyTitle"
+  ).textContent =
+    "📅 " +
+    formatDate(
+      date
+    );
 
-      <div class="card-label">
-        Pencapaian Qty tanggal ${formatDate(date)}
+
+  const summary =
+    document.getElementById(
+      "dailySummary"
+    );
+
+
+  summary.innerHTML = `
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-label">
+          Target Hari Ini
+        </div>
+        <div class="card-value">
+          ${fmtDecimal(
+            rolling.targetToday
+          )}
+        </div>
       </div>
 
-      <div class="card-value">
-        ${formatNumber(actual)}
+      <div class="card">
+        <div class="card-label">
+          Actual Hari Ini
+        </div>
+        <div class="card-value">
+          ${fmt(
+            rolling.actualToday
+          )}
+        </div>
       </div>
 
-      <div class="field" style="margin-top:12px">
+      <div class="card">
+        <div class="card-label">
+          Selisih
+        </div>
+        <div class="card-value ${
+          rolling.differenceToday >= 0
+            ? "good"
+            : "bad"
+        }">
+          ${
+            rolling.differenceToday >= 0
+              ? "+"
+              : ""
+          }
+          ${fmtDecimal(
+            rolling.differenceToday
+          )}
+        </div>
+      </div>
 
-        <label>
-          Input pencapaian hari ini
-        </label>
-
-        <input
-          type="number"
-          min="0"
-          value="${actual}"
-          onchange="setDailyActual('${date}',this.value)"
-        >
-
+      <div class="card">
+        <div class="card-label">
+          Target Besok
+        </div>
+        <div class="card-value">
+          ${
+            rolling.daysAfterToday > 0
+              ? fmtDecimal(
+                  rolling.targetTomorrow
+                )
+              : "-"
+          }
+        </div>
       </div>
 
     </div>
 
   `;
 
-  if(!week.items.length){
 
-    container.innerHTML += `
-      <div class="empty" style="margin-top:10px">
+  renderDailyItems(
+    date
+  );
+
+}
+
+
+/* =====================================================
+   DAY SELECTOR
+===================================================== */
+
+function renderDaySelector(
+  dates,
+  selected
+){
+
+  const box =
+    document.getElementById(
+      "daySelector"
+    );
+
+
+  box.innerHTML = "";
+
+
+  dates.forEach(
+    (date,index) => {
+
+      const btn =
+        document.createElement(
+          "button"
+        );
+
+
+      const actual =
+        getDailyTotal(
+          date
+        );
+
+
+      btn.className =
+        "day-btn " +
+        (
+          date === selected
+            ? "active"
+            : ""
+        ) +
+        (
+          actual > 0
+            ? " done"
+            : ""
+        );
+
+
+      btn.innerHTML =
+        "<strong>H" +
+        (index+1) +
+        "</strong>" +
+        formatDayOnly(
+          date
+        );
+
+
+      btn.onclick =
+        function(){
+
+          selectedDate =
+            date;
+
+          renderAll();
+
+        };
+
+
+      box.appendChild(
+        btn
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   DAILY ITEMS
+===================================================== */
+
+function renderDailyItems(
+  date
+){
+
+  const box =
+    document.getElementById(
+      "dailyItems"
+    );
+
+
+  const week =
+    getWeekData();
+
+
+  box.innerHTML =
+    `
+      <div class="section-title">
+        📦 Input Actual Per Item
+      </div>
+    `;
+
+
+  if(
+    week.items.length === 0
+  ){
+
+    box.innerHTML += `
+      <div class="empty">
+        <div class="empty-icon">📦</div>
         Belum ada item PSM.
       </div>
     `;
@@ -1640,147 +3124,393 @@ function renderDaily(){
 
   }
 
-  container.innerHTML += `
-    <div class="section-title">
-      📦 Detail Item
-    </div>
-  `;
 
-  week.items.forEach(item=>{
+  week.items.forEach(
+    item => {
 
-    const target =
-      Number(item.target)||0;
+      const rolling =
+        getItemRolling(
+          item,
+          date
+        );
 
-    const dailyTarget =
-      rolling.period.days > 0
-        ? target / rolling.period.days
-        : 0;
 
-    container.innerHTML += `
+      const actual =
+        rolling.actualToday;
 
-      <div class="item">
 
-        <div class="item-name">
-          ${escapeHtml(item.name)}
-        </div>
+      const color =
+        rolling.differenceToday >= 0
+          ? "good"
+          : "bad";
 
-        <div class="item-grid">
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "daily-card";
+
+
+      div.innerHTML = `
+
+        <div class="daily-top">
 
           <div>
-            <div class="card-label">
-              Target rata-rata/hari
+
+            <div class="daily-title">
+              ${esc(item.name)}
             </div>
 
-            <strong>
-              ${formatNumberDecimal(dailyTarget)}
-            </strong>
+            <div class="daily-target">
+              Target Week:
+              ${fmt(item.target)}
+              Qty
+            </div>
+
           </div>
 
-          <div>
-            <div class="card-label">
-              Target Week
-            </div>
+
+          <input
+            class="daily-input"
+            type="number"
+            min="0"
+            value="${actual}"
+            onchange="
+              setDailyItemActual(
+                '${date}',
+                '${item.id}',
+                this.value
+              )
+            "
+            placeholder="Actual"
+          >
+
+        </div>
+
+
+        <div class="daily-bottom">
+
+          <div class="daily-mini">
+
+            <span>
+              Target Hari
+            </span>
 
             <strong>
-              ${formatNumber(target)}
+              ${fmtDecimal(
+                rolling.targetToday
+              )}
             </strong>
+
+          </div>
+
+
+          <div class="daily-mini">
+
+            <span>
+              Selisih
+            </span>
+
+            <strong class="${color}">
+              ${
+                rolling.differenceToday >= 0
+                  ? "+"
+                  : ""
+              }
+              ${fmtDecimal(
+                rolling.differenceToday
+              )}
+            </strong>
+
+          </div>
+
+
+          <div class="daily-mini">
+
+            <span>
+              Target Besok
+            </span>
+
+            <strong>
+              ${
+                rolling.targetTomorrow > 0
+                  ? fmtDecimal(
+                      rolling.targetTomorrow
+                    )
+                  : "-"
+              }
+            </strong>
+
           </div>
 
         </div>
 
-      </div>
 
-    `;
+        <div
+          style="
+            margin-top:10px;
+            font-size:10px;
+            color:#758197;
+          ">
 
-  });
+          Total actual item sampai hari ini:
+          <strong>
+            ${fmt(
+              rolling.totalActual
+            )}
+          </strong>
+
+          /
+          ${fmt(item.target)}
+
+        </div>
+
+      `;
+
+
+      box.appendChild(
+        div
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================
-   SUMMARY
-========================= */
+/* =====================================================
+   MONTH SUMMARY
+===================================================== */
 
 function renderSummary(){
 
-  const info =
-    getMonthInfo();
+  const box =
+    document.getElementById(
+      "monthSummaryCard"
+    );
 
-  document.getElementById(
-    "summaryMonth"
-  ).textContent =
-    formatMonth(selectedMonth);
+
+  let totalTarget = 0;
+
+  let totalActual = 0;
+
+
+  for(
+    let week=1;
+    week<=4;
+    week++
+  ){
+
+    const old =
+      selectedWeek;
+
+    selectedWeek =
+      week;
+
+
+    const totals =
+      getTotals();
+
+
+    totalTarget +=
+      totals.target;
+
+
+    totalActual +=
+      totals.actual;
+
+
+    selectedWeek =
+      old;
+
+  }
+
+
+  const acv =
+    totalTarget > 0
+      ? (
+          totalActual /
+          totalTarget
+        ) * 100
+      : 0;
+
+
+  box.innerHTML = `
+
+    <div class="card-label">
+      Rekap ${monthName(
+        selectedMonth
+      )}
+    </div>
+
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      margin-top:10px;
+    ">
+
+      <div>
+        <div class="card-label">
+          Target
+        </div>
+        <div class="card-value">
+          ${fmt(totalTarget)}
+        </div>
+      </div>
+
+      <div>
+        <div class="card-label">
+          Actual
+        </div>
+        <div class="card-value">
+          ${fmt(totalActual)}
+        </div>
+      </div>
+
+      <div>
+        <div class="card-label">
+          ACV
+        </div>
+        <div class="acv ${
+          acv >= 100
+            ? "good"
+            : "bad"
+        }">
+          ${fmtPercent(acv)}
+        </div>
+      </div>
+
+    </div>
+
+  `;
+
 
   const tbody =
     document.getElementById(
       "summaryTable"
     );
 
+
   tbody.innerHTML = "";
 
-  for(let i=1;i<=4;i++){
 
-    const oldWeek =
+  for(
+    let week=1;
+    week<=4;
+    week++
+  ){
+
+    const old =
       selectedWeek;
 
-    selectedWeek = i;
+
+    selectedWeek =
+      week;
+
 
     const totals =
       getTotals();
 
+
     const period =
-      getWeekPeriod(i);
+      getWeekPeriod(
+        week
+      );
+
 
     const tr =
-      document.createElement("tr");
+      document.createElement(
+        "tr"
+      );
+
+
+    const color =
+      totals.acv >= 100
+        ? "good"
+        : "bad";
+
 
     tr.innerHTML = `
 
       <td>
-        <strong>Week ${i}</strong>
+        <strong>
+          Week ${week}
+        </strong>
       </td>
 
       <td>
-        ${period.start}-${period.end}
+        ${period.start}-
+        ${period.end}
       </td>
 
       <td>
-        ${formatNumber(totals.target)}
+        ${fmt(
+          totals.target
+        )}
       </td>
 
       <td>
-        ${formatNumber(totals.actual)}
+        ${fmt(
+          totals.actual
+        )}
       </td>
 
       <td class="${
-        totals.acv >= 100
+        totals.difference >= 0
           ? "good"
           : "bad"
       }">
+        ${
+          totals.difference >= 0
+            ? "+"
+            : ""
+        }
+        ${fmt(
+          totals.difference
+        )}
+      </td>
+
+      <td class="${color}">
         <strong>
-          ${formatPercent(totals.acv)}
+          ${fmtPercent(
+            totals.acv
+          )}
         </strong>
       </td>
 
     `;
 
-    tbody.appendChild(tr);
 
-    selectedWeek = oldWeek;
+    tbody.appendChild(
+      tr
+    );
+
+
+    selectedWeek =
+      old;
 
   }
 
 }
 
 
-/* =========================
+/* =====================================================
    NAVIGATION
-========================= */
+===================================================== */
 
-function showSection(section,button){
+function showSection(
+  section,
+  button
+){
 
   currentSection =
     section;
+
 
   document.getElementById(
     "dashboardSection"
@@ -1789,12 +3519,14 @@ function showSection(section,button){
       ? "block"
       : "none";
 
+
   document.getElementById(
     "dailySection"
   ).style.display =
     section === "daily"
       ? "block"
       : "none";
+
 
   document.getElementById(
     "summarySection"
@@ -1803,32 +3535,32 @@ function showSection(section,button){
       ? "block"
       : "none";
 
+
   document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-      btn.classList.remove("active");
-    });
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
 
-  button.classList.add("active");
 
-  if(section==="daily"){
+  button.classList.add(
+    "active"
+  );
 
-    renderDaily();
 
-  }
-
-  if(section==="summary"){
-
-    renderSummary();
-
-  }
+  renderAll();
 
 }
 
 
-/* =========================
+/* =====================================================
    RENDER ALL
-========================= */
+===================================================== */
 
 function renderAll(){
 
@@ -1838,13 +3570,19 @@ function renderAll(){
 
   renderItems();
 
-  if(currentSection==="daily"){
+
+  if(
+    currentSection === "daily"
+  ){
 
     renderDaily();
 
   }
 
-  if(currentSection==="summary"){
+
+  if(
+    currentSection === "summary"
+  ){
 
     renderSummary();
 
@@ -1853,50 +3591,70 @@ function renderAll(){
 }
 
 
-/* =========================
+/* =====================================================
    FORMAT
-========================= */
+===================================================== */
 
-function formatNumber(number){
+function fmt(
+  number
+){
 
-  return Number(number||0)
-    .toLocaleString("id-ID");
-
-}
-
-
-function formatNumberDecimal(number){
-
-  return Number(number||0)
-    .toLocaleString(
-      "id-ID",
-      {
-        maximumFractionDigits:2
-      }
-    );
+  return Number(
+    number || 0
+  ).toLocaleString(
+    "id-ID",
+    {
+      maximumFractionDigits:0
+    }
+  );
 
 }
 
 
-function formatPercent(number){
+function fmtDecimal(
+  number
+){
 
-  return Number(number||0)
-    .toLocaleString(
-      "id-ID",
-      {
-        maximumFractionDigits:1
-      }
-    ) + "%";
+  return Number(
+    number || 0
+  ).toLocaleString(
+    "id-ID",
+    {
+      maximumFractionDigits:2
+    }
+  );
 
 }
 
 
-function formatMonth(value){
+function fmtPercent(
+  number
+){
 
-  const [year,month] =
-    value.split("-").map(Number);
+  return Number(
+    number || 0
+  ).toLocaleString(
+    "id-ID",
+    {
+      maximumFractionDigits:1
+    }
+  ) + "%";
+
+}
+
+
+function monthName(
+  value
+){
+
+  const parts =
+    value
+      .split("-")
+      .map(Number);
+
 
   const names = [
+
     "Januari",
     "Februari",
     "Maret",
@@ -1909,41 +3667,180 @@ function formatMonth(value){
     "Oktober",
     "November",
     "Desember"
+
   ];
 
-  return names[month-1] +
-    " " +
-    year;
-
-}
-
-
-function formatDate(value){
-
-  if(!value) return "-";
-
-  const [year,month,day] =
-    value.split("-").map(Number);
 
   return (
-    String(day).padStart(2,"0") +
-    "/" +
-    String(month).padStart(2,"0") +
-    "/" +
-    year
+    names[
+      parts[1]-1
+    ] +
+    " " +
+    parts[0]
   );
 
 }
 
 
-function escapeHtml(text){
+function formatDate(
+  value
+){
 
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  if(!value){
+
+    return "-";
+
+  }
+
+
+  const parts =
+    value
+      .split("-")
+      .map(Number);
+
+
+  return (
+    String(parts[2])
+      .padStart(2,"0") +
+    " " +
+    shortMonth(
+      parts[1]
+    ) +
+    " " +
+    parts[0]
+  );
+
+}
+
+
+function formatDayOnly(
+  value
+){
+
+  const parts =
+    value
+      .split("-")
+      .map(Number);
+
+
+  return (
+    String(parts[2])
+      .padStart(2,"0") +
+    " " +
+    shortMonth(
+      parts[1]
+    )
+  );
+
+}
+
+
+function shortMonth(
+  month
+){
+
+  const names = [
+
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mei",
+    "Jun",
+    "Jul",
+    "Agu",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des"
+
+  ];
+
+
+  return names[
+    month-1
+  ];
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function esc(
+  text
+){
+
+  return String(
+    text
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function showToast(
+  message
+){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
+
+  toastTimer =
+    setTimeout(
+      function(){
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      2200
+    );
 
 }
 
