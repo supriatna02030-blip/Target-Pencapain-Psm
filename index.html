@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#087cff">
+<meta name="mobile-web-app-capable" content="yes">
+<title>PSM Monitoring</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f6fa;
+  color:#172033;
+  padding-bottom:80px;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.header{
+  background:linear-gradient(135deg,#087cff,#0055c9);
+  color:white;
+  padding:22px 18px 28px;
+  border-radius:0 0 25px 25px;
+  box-shadow:0 5px 18px rgba(0,0,0,.12);
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.subtitle{
+  margin-top:6px;
+  opacity:.9;
+  font-size:13px;
+}
+
+.month-control{
+  margin-top:18px;
+  display:flex;
+  gap:8px;
+}
+
+.month-control input{
+  flex:1;
+  border:0;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
+
+.week-tabs{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-top:-4px;
+}
+
+.week-tab{
+  background:white;
+  border-radius:13px;
+  padding:11px 5px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+  color:#657085;
+  font-size:12px;
+}
+
+.week-tab strong{
+  display:block;
+  font-size:14px;
+  color:#172033;
+  margin-bottom:3px;
+}
+
+.week-tab.active{
+  background:#087cff;
+  color:white;
+}
+
+.week-tab.active strong{
+  color:white;
+}
+
+.section-title{
+  margin:22px 2px 10px;
+  font-size:17px;
+  font-weight:800;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.card{
+  background:white;
+  border-radius:17px;
+  padding:15px;
+  box-shadow:0 3px 14px rgba(0,0,0,.06);
+}
+
+.card-label{
+  color:#758095;
+  font-size:12px;
+}
+
+.card-value{
+  margin-top:5px;
+  font-size:24px;
+  font-weight:800;
+}
+
+.card-small{
+  margin-top:4px;
+  font-size:11px;
+  color:#7c8799;
+}
+
+.progress-card{
+  margin-top:10px;
+}
+
+.progress{
+  height:12px;
+  background:#e8edf4;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#087cff,#00b7ff);
+  transition:.3s;
+}
+
+.acv{
+  font-size:32px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.good{
+  color:#0a9b55;
+}
+
+.warning{
+  color:#d78a00;
+}
+
+.bad{
+  color:#e53935;
+}
+
+.info-box{
+  margin-top:10px;
+  background:#eef7ff;
+  border:1px solid #cce6ff;
+  border-radius:16px;
+  padding:15px;
+}
+
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:5px 0;
+  font-size:13px;
+}
+
+.info-row strong{
+  text-align:right;
+}
+
+.primary-btn{
+  width:100%;
+  background:#087cff;
+  color:white;
+  padding:13px;
+  border-radius:13px;
+  font-weight:700;
+  margin-top:12px;
+}
+
+.secondary-btn{
+  background:#eef4fb;
+  color:#087cff;
+  padding:10px 13px;
+  border-radius:11px;
+  font-weight:700;
+}
+
+.danger-btn{
+  background:#fff0f0;
+  color:#e53935;
+  padding:8px 10px;
+  border-radius:9px;
+  font-size:12px;
+}
+
+.item{
+  background:white;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:10px;
+  box-shadow:0 3px 14px rgba(0,0,0,.06);
+}
+
+.item-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.item-name{
+  font-size:15px;
+  font-weight:800;
+}
+
+.item-achievement{
+  font-size:20px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.item-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:13px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  color:#788398;
+  margin-bottom:5px;
+}
+
+.field input{
+  width:100%;
+  border:1px solid #dce3ed;
+  background:#f9fbfd;
+  border-radius:10px;
+  padding:10px;
+  outline:none;
+}
+
+.field input:focus{
+  border-color:#087cff;
+}
+
+.item-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:12px;
+  gap:8px;
+}
+
+.status{
+  font-size:12px;
+  font-weight:700;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  z-index:100;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:650px;
+  border-radius:25px 25px 0 0;
+  padding:20px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.modal-field{
+  margin-bottom:12px;
+}
+
+.modal-field label{
+  display:block;
+  font-size:12px;
+  margin-bottom:6px;
+  color:#6d7789;
+}
+
+.modal-field input{
+  width:100%;
+  padding:12px;
+  border:1px solid #dce3ed;
+  border-radius:11px;
+  outline:none;
+}
+
+.modal-actions{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
+}
+
+.modal-actions button{
+  flex:1;
+}
+
+.empty{
+  background:white;
+  border-radius:17px;
+  padding:25px 15px;
+  text-align:center;
+  color:#7b8597;
+  box-shadow:0 3px 14px rgba(0,0,0,.05);
+}
+
+.empty-icon{
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:66px;
+  background:white;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  box-shadow:0 -4px 18px rgba(0,0,0,.08);
+  z-index:50;
+}
+
+.nav-btn{
+  background:white;
+  color:#7c8798;
+  font-size:11px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+
+.nav-btn span{
+  font-size:20px;
+}
+
+.nav-btn.active{
+  color:#087cff;
+  font-weight:800;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  background:white;
+  border-radius:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:500px;
+}
+
+th,td{
+  padding:11px 9px;
+  border-bottom:1px solid #edf0f4;
+  font-size:12px;
+  text-align:left;
+}
+
+th{
+  background:#f7f9fc;
+  font-weight:800;
+}
+
+@media(min-width:700px){
+  .cards{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .bottom-nav{
+    left:50%;
+    transform:translateX(-50%);
+    max-width:900px;
+    border-radius:20px 20px 0 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <div>
+      <div class="logo">📊 PSM MONITORING</div>
+      <div class="subtitle">Monitoring Produk Spesial Mingguan</div>
+    </div>
+  </div>
+
+  <div class="month-control">
+    <input type="month" id="monthInput">
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="week-tabs" id="weekTabs"></div>
+
+  <section id="dashboardSection">
+
+    <div class="section-title">📊 Dashboard Week</div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-label">Target Total</div>
+        <div class="card-value" id="totalTarget">0</div>
+        <div class="card-small">Qty</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Pencapaian</div>
+        <div class="card-value" id="totalActual">0</div>
+        <div class="card-small">Qty</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Selisih</div>
+        <div class="card-value" id="totalDifference">0</div>
+        <div class="card-small">Lebih / kurang</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">ACV Week</div>
+        <div class="acv" id="totalAcv">0%</div>
+        <div class="card-small" id="statusText">Belum ada data</div>
+      </div>
+
+    </div>
+
+    <div class="card progress-card">
+      <div class="card-label">Progress terhadap Target</div>
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="section-title">📅 Target Berjalan</div>
+
+    <div class="info-box">
+
+      <div class="info-row">
+        <span>Periode Week</span>
+        <strong id="weekPeriod">-</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Hari berjalan</span>
+        <strong id="dayNumber">-</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Target hari ini</span>
+        <strong id="todayTarget">0 Qty</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Pencapaian hari ini</span>
+        <strong id="todayActual">0 Qty</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Selisih hari ini</span>
+        <strong id="todayDifference">0 Qty</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Sisa target Week</span>
+        <strong id="remainingTarget">0 Qty</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Sisa hari</span>
+        <strong id="remainingDays">0</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Target kebutuhan hari berikutnya</span>
+        <strong id="nextTarget">0 Qty</strong>
+      </div>
+
+    </div>
+
+    <button class="primary-btn" onclick="openAddItem()">
+      ＋ Tambah Item PSM
+    </button>
+
+    <div class="section-title">📦 Daftar Item PSM</div>
+
+    <div id="itemsContainer"></div>
+
+  </section>
+
+
+  <section id="dailySection" style="display:none">
+
+    <div class="section-title">📅 Monitoring Harian</div>
+
+    <div class="card">
+      <div class="card-label">Tanggal monitoring</div>
+      <input
+        type="date"
+        id="dailyDate"
+        style="width:100%;margin-top:8px;padding:11px;border:1px solid #dce3ed;border-radius:10px;"
+        onchange="renderDaily()"
+      >
+    </div>
+
+    <div id="dailyContainer" style="margin-top:10px"></div>
+
+  </section>
+
+
+  <section id="summarySection" style="display:none">
+
+    <div class="section-title">📈 Rekap Bulanan</div>
+
+    <div class="card">
+      <div class="card-label">Bulan</div>
+      <div class="card-value" id="summaryMonth">-</div>
+    </div>
+
+    <div class="section-title">Week 1–4</div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Periode</th>
+            <th>Target</th>
+            <th>Aktual</th>
+            <th>ACV</th>
+          </tr>
+        </thead>
+        <tbody id="summaryTable"></tbody>
+      </table>
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- MODAL TAMBAH ITEM -->
+
+<div class="modal" id="itemModal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">➕ Tambah Item PSM</div>
+
+    <div class="modal-field">
+      <label>Nama Produk / Item</label>
+      <input id="itemName" placeholder="Contoh: AQUA 600ML">
+    </div>
+
+    <div class="modal-field">
+      <label>Target Qty</label>
+      <input id="itemTarget" type="number" min="0" placeholder="Contoh: 100">
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="secondary-btn"
+        onclick="closeModal()">
+        Batal
+      </button>
+
+      <button
+        class="primary-btn"
+        style="margin-top:0"
+        onclick="saveItem()">
+        Simpan
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" onclick="showSection('dashboard',this)">
+    <span>🏠</span>
+    Dashboard
+  </button>
+
+  <button class="nav-btn" onclick="showSection('daily',this)">
+    <span>📅</span>
+    Harian
+  </button>
+
+  <button class="nav-btn" onclick="showSection('summary',this)">
+    <span>📊</span>
+    Rekap
+  </button>
+
+</nav>
+
+
+<script>
+
+const STORAGE_KEY = "psm_monitoring_v1";
+
+let data = loadData();
+
+let selectedMonth = "";
+let selectedWeek = 1;
+
+let currentSection = "dashboard";
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadData(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(saved){
+
+      return JSON.parse(saved);
+
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  return {};
+
+}
+
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =========================
+   INIT
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const now = new Date();
+
+  selectedMonth =
+    now.getFullYear() +
+    "-" +
+    String(now.getMonth()+1).padStart(2,"0");
+
+  document.getElementById("monthInput").value =
+    selectedMonth;
+
+  document
+    .getElementById("monthInput")
+    .addEventListener("change",function(){
+
+      selectedMonth = this.value;
+
+      selectedWeek = 1;
+
+      renderAll();
+
+    });
+
+  renderAll();
+
+});
+
+
+/* =========================
+   MONTH / WEEK
+========================= */
+
+function getMonthInfo(){
+
+  const [year,month] =
+    selectedMonth.split("-").map(Number);
+
+  const lastDay =
+    new Date(year,month,0).getDate();
+
+  return {
+    year,
+    month,
+    lastDay
+  };
+
+}
+
+
+function getWeekPeriod(week){
+
+  const info = getMonthInfo();
+
+  let start;
+  let end;
+
+  if(week === 1){
+
+    start = 1;
+    end = Math.min(7,info.lastDay);
+
+  }else if(week === 2){
+
+    start = 8;
+    end = Math.min(15,info.lastDay);
+
+  }else if(week === 3){
+
+    start = 16;
+    end = Math.min(23,info.lastDay);
+
+  }else{
+
+    start = 24;
+    end = info.lastDay;
+
+  }
+
+  return {
+    start,
+    end,
+    days:end-start+1
+  };
+
+}
+
+
+function getWeekKey(){
+
+  return selectedMonth + "_W" + selectedWeek;
+
+}
+
+
+function getWeekData(){
+
+  const key = getWeekKey();
+
+  if(!data[key]){
+
+    data[key] = {
+      items:[],
+      daily:{}
+    };
+
+    saveData();
+
+  }
+
+  return data[key];
+
+}
+
+
+/* =========================
+   WEEK TABS
+========================= */
+
+function renderWeeks(){
+
+  const container =
+    document.getElementById("weekTabs");
+
+  container.innerHTML = "";
+
+  for(let i=1;i<=4;i++){
+
+    const period =
+      getWeekPeriod(i);
+
+    const btn =
+      document.createElement("button");
+
+    btn.className =
+      "week-tab " +
+      (i===selectedWeek ? "active":"");
+
+    btn.innerHTML =
+      "<strong>Week "+i+"</strong>" +
+      period.start +
+      "-" +
+      period.end;
+
+    btn.onclick = ()=>{
+
+      selectedWeek = i;
+
+      renderAll();
+
+    };
+
+    container.appendChild(btn);
+
+  }
+
+}
+
+
+/* =========================
+   ADD ITEM
+========================= */
+
+function openAddItem(){
+
+  document.getElementById("itemName").value = "";
+
+  document.getElementById("itemTarget").value = "";
+
+  document
+    .getElementById("itemModal")
+    .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("itemModal")
+    .classList.remove("show");
+
+}
+
+
+function saveItem(){
+
+  const name =
+    document
+      .getElementById("itemName")
+      .value.trim();
+
+  const target =
+    Number(
+      document
+        .getElementById("itemTarget")
+        .value
+    );
+
+  if(!name){
+
+    alert("Nama produk wajib diisi.");
+
+    return;
+
+  }
+
+  if(target <= 0){
+
+    alert("Target harus lebih dari 0.");
+
+    return;
+
+  }
+
+  const week =
+    getWeekData();
+
+  week.items.push({
+
+    id:Date.now().toString(),
+
+    name:name,
+
+    target:target,
+
+    actual:0
+
+  });
+
+  saveData();
+
+  closeModal();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   DELETE ITEM
+========================= */
+
+function deleteItem(id){
+
+  if(!confirm("Hapus item ini?")) return;
+
+  const week =
+    getWeekData();
+
+  week.items =
+    week.items.filter(
+      item=>item.id!==id
+    );
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   UPDATE ACTUAL
+========================= */
+
+function updateActual(id,value){
+
+  const week =
+    getWeekData();
+
+  const item =
+    week.items.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  item.actual =
+    Math.max(
+      0,
+      Number(value)||0
+    );
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   TOTAL
+========================= */
+
+function getTotals(){
+
+  const week =
+    getWeekData();
+
+  let target = 0;
+  let actual = 0;
+
+  week.items.forEach(item=>{
+
+    target += Number(item.target)||0;
+
+    actual += Number(item.actual)||0;
+
+  });
+
+  const difference =
+    actual-target;
+
+  const acv =
+    target > 0
+      ? (actual/target)*100
+      : 0;
+
+  return {
+    target,
+    actual,
+    difference,
+    acv
+  };
+
+}
+
+
+/* =========================
+   DAILY DATA
+========================= */
+
+function getTodayString(){
+
+  const d = new Date();
+
+  return (
+    d.getFullYear() +
+    "-" +
+    String(d.getMonth()+1).padStart(2,"0") +
+    "-" +
+    String(d.getDate()).padStart(2,"0")
+  );
+
+}
+
+
+function getDateFromParts(day){
+
+  const [year,month] =
+    selectedMonth.split("-");
+
+  return (
+    year +
+    "-" +
+    month +
+    "-" +
+    String(day).padStart(2,"0")
+  );
+
+}
+
+
+function getCurrentDayIndex(){
+
+  const period =
+    getWeekPeriod(selectedWeek);
+
+  const today =
+    new Date();
+
+  const [year,month] =
+    selectedMonth.split("-").map(Number);
+
+  if(
+    today.getFullYear() !== year ||
+    today.getMonth()+1 !== month
+  ){
+
+    return 1;
+
+  }
+
+  const day =
+    today.getDate();
+
+  if(day < period.start){
+
+    return 1;
+
+  }
+
+  if(day > period.end){
+
+    return period.days;
+
+  }
+
+  return day-period.start+1;
+
+}
+
+
+function getDailyActual(){
+
+  const week =
+    getWeekData();
+
+  let total = 0;
+
+  Object.values(week.daily || {})
+    .forEach(v=>{
+
+      total += Number(v)||0;
+
+    });
+
+  return total;
+
+}
+
+
+function getDailyActualForDate(date){
+
+  const week =
+    getWeekData();
+
+  return Number(
+    (week.daily || {})[date] || 0
+  );
+
+}
+
+
+function setDailyActual(date,value){
+
+  const week =
+    getWeekData();
+
+  if(!week.daily){
+
+    week.daily = {};
+
+  }
+
+  week.daily[date] =
+    Math.max(
+      0,
+      Number(value)||0
+    );
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   ROLLING TARGET
+========================= */
+
+function getRollingInfo(){
+
+  const totals =
+    getTotals();
+
+  const period =
+    getWeekPeriod(selectedWeek);
+
+  const dayIndex =
+    getCurrentDayIndex();
+
+  const date =
+    getDateFromParts(
+      period.start + dayIndex - 1
+    );
+
+  const actualToday =
+    getDailyActualForDate(date);
+
+  /*
+    Target sampai hari ini dihitung
+    berdasarkan pembagian target Week.
+  */
+
+  const baseDaily =
+    totals.target / period.days;
+
+  const targetToday =
+    Math.ceil(
+      baseDaily
+    );
+
+  const accumulatedTarget =
+    Math.ceil(
+      baseDaily * dayIndex
+    );
+
+  const accumulatedActual =
+    getDailyActual();
+
+  const remaining =
+    Math.max(
+      0,
+      totals.target-accumulatedActual
+    );
+
+  const remainingDays =
+    Math.max(
+      0,
+      period.days-dayIndex
+    );
+
+  let nextTarget = 0;
+
+  if(remainingDays > 0){
+
+    nextTarget =
+      Math.ceil(
+        remaining /
+        remainingDays
+      );
+
+  }
+
+  return {
+    period,
+    dayIndex,
+    date,
+    actualToday,
+    targetToday,
+    accumulatedTarget,
+    accumulatedActual,
+    remaining,
+    remainingDays,
+    nextTarget
+  };
+
+}
+
+
+/* =========================
+   RENDER DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+  const totals =
+    getTotals();
+
+  const rolling =
+    getRollingInfo();
+
+  document.getElementById("totalTarget")
+    .textContent =
+    formatNumber(totals.target);
+
+  document.getElementById("totalActual")
+    .textContent =
+    formatNumber(totals.actual);
+
+  document.getElementById("totalDifference")
+    .textContent =
+    (totals.difference >= 0 ? "+" : "") +
+    formatNumber(totals.difference);
+
+  const acvElement =
+    document.getElementById("totalAcv");
+
+  acvElement.textContent =
+    formatPercent(totals.acv);
+
+  acvElement.className =
+    "acv " +
+    (
+      totals.acv >= 100
+        ? "good"
+        : totals.acv >= 80
+          ? "warning"
+          : "bad"
+    );
+
+  const status =
+    document.getElementById("statusText");
+
+  if(totals.target === 0){
+
+    status.textContent =
+      "Belum ada target";
+
+  }else if(totals.acv >= 100){
+
+    status.textContent =
+      "🟢 TARGET TERCAPAI";
+
+  }else{
+
+    status.textContent =
+      "🔴 MASIH KURANG";
+
+  }
+
+  const progress =
+    totals.target > 0
+      ? (totals.actual/totals.target)*100
+      : 0;
+
+  document.getElementById("progressBar")
+    .style.width =
+    Math.min(
+      100,
+      Math.max(0,progress)
+    ) + "%";
+
+  const p =
+    rolling.period;
+
+  document.getElementById("weekPeriod")
+    .textContent =
+    p.start +
+    "-" +
+    p.end +
+    " " +
+    formatMonth(selectedMonth);
+
+  document.getElementById("dayNumber")
+    .textContent =
+    rolling.dayIndex +
+    " / " +
+    p.days;
+
+  document.getElementById("todayTarget")
+    .textContent =
+    formatNumber(
+      rolling.targetToday
+    ) +
+    " Qty";
+
+  document.getElementById("todayActual")
+    .textContent =
+    formatNumber(
+      rolling.actualToday
+    ) +
+    " Qty";
+
+  const todayDifference =
+    rolling.actualToday -
+    rolling.targetToday;
+
+  document.getElementById("todayDifference")
+    .textContent =
+    (todayDifference >= 0 ? "+" : "") +
+    formatNumber(todayDifference) +
+    " Qty";
+
+  document.getElementById("remainingTarget")
+    .textContent =
+    formatNumber(
+      rolling.remaining
+    ) +
+    " Qty";
+
+  document.getElementById("remainingDays")
+    .textContent =
+    rolling.remainingDays;
+
+  document.getElementById("nextTarget")
+    .textContent =
+    rolling.remainingDays > 0
+      ? formatNumber(rolling.nextTarget)+" Qty"
+      : "Week selesai";
+
+}
+
+
+/* =========================
+   RENDER ITEMS
+========================= */
+
+function renderItems(){
+
+  const container =
+    document.getElementById(
+      "itemsContainer"
+    );
+
+  const week =
+    getWeekData();
+
+  container.innerHTML = "";
+
+  if(!week.items.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📦</div>
+        <strong>Belum ada item PSM</strong>
+        <div style="margin-top:5px">
+          Tambahkan produk PSM untuk Week ini.
+        </div>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  week.items.forEach(item=>{
+
+    const target =
+      Number(item.target)||0;
+
+    const actual =
+      Number(item.actual)||0;
+
+    const achievement =
+      target > 0
+        ? (actual/target)*100
+        : 0;
+
+    const difference =
+      actual-target;
+
+    let colorClass =
+      achievement >= 100
+        ? "good"
+        : achievement >= 80
+          ? "warning"
+          : "bad";
+
+    const div =
+      document.createElement("div");
+
+    div.className = "item";
+
+    div.innerHTML = `
+
+      <div class="item-head">
+
+        <div>
+          <div class="item-name">
+            ${escapeHtml(item.name)}
+          </div>
+
+          <div style="font-size:11px;color:#7c8798;margin-top:4px">
+            Target: ${formatNumber(target)} Qty
+          </div>
+        </div>
+
+        <div class="item-achievement ${colorClass}">
+          ${formatPercent(achievement)}
+        </div>
+
+      </div>
+
+      <div class="item-grid">
+
+        <div class="field">
+
+          <label>Target Qty</label>
+
+          <input
+            type="number"
+            value="${target}"
+            min="0"
+            onchange="updateTarget('${item.id}',this.value)"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Pencapaian Qty</label>
+
+          <input
+            type="number"
+            value="${actual}"
+            min="0"
+            onchange="updateActual('${item.id}',this.value)"
+          >
+
+        </div>
+
+      </div>
+
+      <div class="item-bottom">
+
+        <div class="status ${colorClass}">
+          ${
+            difference >= 0
+              ? "🟢 Lebih "
+              : "🔴 Kurang "
+          }
+          ${formatNumber(Math.abs(difference))} Qty
+        </div>
+
+        <button
+          class="danger-btn"
+          onclick="deleteItem('${item.id}')">
+          Hapus
+        </button>
+
+      </div>
+
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+function updateTarget(id,value){
+
+  const week =
+    getWeekData();
+
+  const item =
+    week.items.find(
+      x=>x.id===id
+    );
+
+  if(!item) return;
+
+  item.target =
+    Math.max(
+      0,
+      Number(value)||0
+    );
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================
+   DAILY MONITORING
+========================= */
+
+function renderDaily(){
+
+  const container =
+    document.getElementById(
+      "dailyContainer"
+    );
+
+  const week =
+    getWeekData();
+
+  let date =
+    document.getElementById(
+      "dailyDate"
+    ).value;
+
+  if(!date){
+
+    date =
+      getTodayString();
+
+    document.getElementById(
+      "dailyDate"
+    ).value =
+      date;
+
+  }
+
+  const actual =
+    getDailyActualForDate(date);
+
+  const rolling =
+    getRollingInfo();
+
+  container.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-label">
+        Pencapaian Qty tanggal ${formatDate(date)}
+      </div>
+
+      <div class="card-value">
+        ${formatNumber(actual)}
+      </div>
+
+      <div class="field" style="margin-top:12px">
+
+        <label>
+          Input pencapaian hari ini
+        </label>
+
+        <input
+          type="number"
+          min="0"
+          value="${actual}"
+          onchange="setDailyActual('${date}',this.value)"
+        >
+
+      </div>
+
+    </div>
+
+  `;
+
+  if(!week.items.length){
+
+    container.innerHTML += `
+      <div class="empty" style="margin-top:10px">
+        Belum ada item PSM.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML += `
+    <div class="section-title">
+      📦 Detail Item
+    </div>
+  `;
+
+  week.items.forEach(item=>{
+
+    const target =
+      Number(item.target)||0;
+
+    const dailyTarget =
+      rolling.period.days > 0
+        ? target / rolling.period.days
+        : 0;
+
+    container.innerHTML += `
+
+      <div class="item">
+
+        <div class="item-name">
+          ${escapeHtml(item.name)}
+        </div>
+
+        <div class="item-grid">
+
+          <div>
+            <div class="card-label">
+              Target rata-rata/hari
+            </div>
+
+            <strong>
+              ${formatNumberDecimal(dailyTarget)}
+            </strong>
+          </div>
+
+          <div>
+            <div class="card-label">
+              Target Week
+            </div>
+
+            <strong>
+              ${formatNumber(target)}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+function renderSummary(){
+
+  const info =
+    getMonthInfo();
+
+  document.getElementById(
+    "summaryMonth"
+  ).textContent =
+    formatMonth(selectedMonth);
+
+  const tbody =
+    document.getElementById(
+      "summaryTable"
+    );
+
+  tbody.innerHTML = "";
+
+  for(let i=1;i<=4;i++){
+
+    const oldWeek =
+      selectedWeek;
+
+    selectedWeek = i;
+
+    const totals =
+      getTotals();
+
+    const period =
+      getWeekPeriod(i);
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>Week ${i}</strong>
+      </td>
+
+      <td>
+        ${period.start}-${period.end}
+      </td>
+
+      <td>
+        ${formatNumber(totals.target)}
+      </td>
+
+      <td>
+        ${formatNumber(totals.actual)}
+      </td>
+
+      <td class="${
+        totals.acv >= 100
+          ? "good"
+          : "bad"
+      }">
+        <strong>
+          ${formatPercent(totals.acv)}
+        </strong>
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+    selectedWeek = oldWeek;
+
+  }
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showSection(section,button){
+
+  currentSection =
+    section;
+
+  document.getElementById(
+    "dashboardSection"
+  ).style.display =
+    section === "dashboard"
+      ? "block"
+      : "none";
+
+  document.getElementById(
+    "dailySection"
+  ).style.display =
+    section === "daily"
+      ? "block"
+      : "none";
+
+  document.getElementById(
+    "summarySection"
+  ).style.display =
+    section === "summary"
+      ? "block"
+      : "none";
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  if(section==="daily"){
+
+    renderDaily();
+
+  }
+
+  if(section==="summary"){
+
+    renderSummary();
+
+  }
+
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+  renderWeeks();
+
+  renderDashboard();
+
+  renderItems();
+
+  if(currentSection==="daily"){
+
+    renderDaily();
+
+  }
+
+  if(currentSection==="summary"){
+
+    renderSummary();
+
+  }
+
+}
+
+
+/* =========================
+   FORMAT
+========================= */
+
+function formatNumber(number){
+
+  return Number(number||0)
+    .toLocaleString("id-ID");
+
+}
+
+
+function formatNumberDecimal(number){
+
+  return Number(number||0)
+    .toLocaleString(
+      "id-ID",
+      {
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+function formatPercent(number){
+
+  return Number(number||0)
+    .toLocaleString(
+      "id-ID",
+      {
+        maximumFractionDigits:1
+      }
+    ) + "%";
+
+}
+
+
+function formatMonth(value){
+
+  const [year,month] =
+    value.split("-").map(Number);
+
+  const names = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember"
+  ];
+
+  return names[month-1] +
+    " " +
+    year;
+
+}
+
+
+function formatDate(value){
+
+  if(!value) return "-";
+
+  const [year,month,day] =
+    value.split("-").map(Number);
+
+  return (
+    String(day).padStart(2,"0") +
+    "/" +
+    String(month).padStart(2,"0") +
+    "/" +
+    year
+  );
+
+}
+
+
+function escapeHtml(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
